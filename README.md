@@ -37,6 +37,7 @@ existente en el kit de desarrollo.
 
 ![Figura 1](https://github.com/joagonzalez/unsam_digitales_1/blob/master/documentation/images/diagrama_bloques_arquitectura_voltimetro.png)
 
+![Figura 2](https://github.com/joagonzalez/unsam_digitales_1/blob/master/documentation/images/diagrama_procesamiento_control.png)
 
 Los componentes básicos de la arquitectura son:
 - Flip-Flop: Se utilizará un flip-flop de uno de los bloques lógicos de la FPGA (la
