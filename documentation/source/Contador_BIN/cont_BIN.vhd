@@ -7,7 +7,7 @@ use IEEE.std_logic_unsigned.all;
 entity cont_BIN is
 	port(
 		clk: in std_logic;
-		--Q    : out std_logic_vector(15 downto 0);
+		Q    : out std_logic_vector(15 downto 0);
 		out1, out2: out std_logic
 		);   
 end;
@@ -35,6 +35,7 @@ begin
 	fft14: entity work.fft port map(clk, rst, '0', '1', taux(14), qaux(14));
 	fft15: entity work.fft port map(clk, rst, '0', '1', taux(15), qaux(15));
 
+	-- Revisar tema de los and qaux, no deberia depender de q el valor de T en un JK/T -
 	taux(0) <= '1';      
     taux(1) <=taux(0);
     taux(2) <=taux(1) and qaux(1);
@@ -52,9 +53,9 @@ begin
     taux(14)<=taux(13)and qaux(13);
     taux(15)<=taux(14)and qaux(14);
 	
-	rst <=(qaux(0) and qaux(3) and qaux(5) and qaux(6) and qaux(7) and qaux(15)); -- 33001
-    out1 <=(qaux(3) and qaux(5) and qaux(6) and qaux(7) and qaux(15)); 			-- 33000
-    out2 <=(qaux(0) and qaux(3) and qaux(5) and qaux(6) and qaux(7) and qaux(15)); -- 33001
+	rst <= (qaux(0) and qaux(3) and qaux(5) and qaux(6) and qaux(7) and qaux(15)); -- 33001
+    out1 <= (qaux(3) and qaux(5) and qaux(6) and qaux(7) and qaux(15)); 			-- 33000
+    out2 <= (qaux(0) and qaux(3) and qaux(5) and qaux(6) and qaux(7) and qaux(15)); -- 33001
 	
-	Q<=qaux;
+	Q <= qaux;
 end;

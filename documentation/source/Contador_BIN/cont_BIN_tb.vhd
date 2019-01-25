@@ -12,6 +12,8 @@ architecture cont_BIN_tb_arq of cont_BIN_tb is
 	--signal rst : std_logic := '1';
 	--signal ena : std_logic := '1';
 	signal Q : std_logic_vector (15 downto 0);
+	signal out1: out std_logic;
+	signal out2: out std_logic;
 	
 begin 
  	clk <= not clk after 10 ns;
