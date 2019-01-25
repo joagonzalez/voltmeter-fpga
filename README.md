@@ -52,3 +52,11 @@ implementación en VHDL se deberá realizar por comportamiento)
 - Diagrama en bloques (detallando entradas y salidas)
 - Explicación de la funcionalidad de cada bloque
 - Resumen de utilización de recursos y tiempos (datos entregados por la herramienta ISE) 
+
+### Material de consulta
+
+- Contador Binario: https://www.youtube.com/watch?v=_o6NkZKH0yg
+- Flip-Flop T: https://www.youtube.com/watch?v=wK5qJGI8qBA
+- Flip-Flop D: https://www.youtube.com/watch?v=kQ9WICIFWnU
+- Multiplexor: https://www.youtube.com/watch?v=oRIKoCm1eA8
+- Lista de reproduccion: https://www.youtube.com/watch?v=vsoYlH1_hbc&list=PLWPirh4EWFpHk70zwYoHu87uVsCC8E2S-
