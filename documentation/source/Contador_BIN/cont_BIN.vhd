@@ -35,7 +35,6 @@ begin
 	fft14: entity work.fft port map(clk, rst, '0', '1', taux(14), qaux(14));
 	fft15: entity work.fft port map(clk, rst, '0', '1', taux(15), qaux(15));
 
-	-- Revisar tema de los and qaux, no deberia depender de q el valor de T en un JK/T -
 	taux(0) <= '1';      
     taux(1) <=taux(0);
     taux(2) <=taux(1) and qaux(1);
