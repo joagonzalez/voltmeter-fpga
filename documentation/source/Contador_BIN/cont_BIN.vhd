@@ -7,6 +7,7 @@ use IEEE.std_logic_unsigned.all;
 entity cont_BIN is
 	port(
 		clk: in std_logic;
+		--rst: in std_logic;
 		Q    : out std_logic_vector(15 downto 0);
 		out1, out2: out std_logic
 		);   

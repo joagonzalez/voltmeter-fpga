@@ -60,6 +60,7 @@ implementación en VHDL se deberá realizar por comportamiento)
 - Flip-Flop D: https://www.youtube.com/watch?v=kQ9WICIFWnU
 - Multiplexor: https://www.youtube.com/watch?v=oRIKoCm1eA8
 - Lista de reproduccion: https://www.youtube.com/watch?v=vsoYlH1_hbc&list=PLWPirh4EWFpHk70zwYoHu87uVsCC8E2S-
+- Contador binario 4 bits Flip-Flop D: https://www.vlsifacts.com/circuit-design-4-bit-binary-counter-using-d-flip-flops/
 
 ### Simulador de circuitos
 
