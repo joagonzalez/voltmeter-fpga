@@ -11,7 +11,7 @@ use IEEE.std_logic_1164.all;
 use IEEE.std_logic_unsigned.all;
 
 -- Flip-Flop D structure
-entity ffd is
+entity v_ffd is
     port(
         clk, rst, set, ena: in std_logic;
         D: in std_logic;
@@ -19,10 +19,10 @@ entity ffd is
     );
 end;
 
-architecture ffd_a of ffd is
+architecture v_ffd_a of v_ffd is
     begin
-        -- logical behavior
-        process(clk, rst, set)
+        -- logical behavior (sequential code execution given by process)
+        process(clk, rst, set) -- sensitivity list, trigger process execution
         begin
             if rst = '1' then
                 Q <= '0';

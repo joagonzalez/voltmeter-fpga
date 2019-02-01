@@ -65,3 +65,7 @@ implementación en VHDL se deberá realizar por comportamiento)
 ### Simulador de circuitos
 
 - https://www.falstad.com/circuit/
+
+### VHDL tutorial plus example
+- https://www.seas.upenn.edu/~ese171/vhdl/vhdl_primer.html#Fourbitadder#Fourbitadder
+- http://www.srmuniv.ac.in/ramapuram/sites/ramapuram/files/EC308.pdf
