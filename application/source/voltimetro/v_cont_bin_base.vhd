@@ -32,21 +32,21 @@ component v_ffd
 	);	
 end component;
 
-signal D_x: std_logic;		-- Cable auxiliar para conectar la entrada del m�dulo
-signal D_ff: std_logic;		-- Cable auxiliar para conectar la entrada del flip-flop
-signal Q_x: std_logic;		-- Cable auxiliar para conectar la salida del m�dulo
+signal Di: std_logic;		-- Conexion interna entrada modulo y AND
+signal Di_ff: std_logic;		-- Conexion interna entre XOR y Flip-Flop
+signal Qi: std_logic;		-- Conexion interna salida Flip-Flop y salida del modulo
 
 begin
-    ffd1: ffd
+    ffd: v_ffd
        port map(
           clk => clk,		-- Clock del sistema
-          rst => rst,		-- Reset del m�dulo
-          ena => ena,		-- Enable del m�dulo
-          D => D_ff,
-          Q => Q_x
+          rst => rst,		-- Rest de v_ffd
+          ena => ena,		-- Enable del v_ffd
+          D => Di,
+          Q => Qi
 	  );
-    ACU <= D_x and Q_x;
-    D_ff <= D_x xor Q_x;
-    D_x <= D;
-    Q <= Q_x;
+    ACU <= Di and Qi;
+    Di_ff <= Di xor Qi;
+    Di <= D;
+    Q <= Qi;
 end;
