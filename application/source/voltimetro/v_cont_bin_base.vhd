@@ -42,7 +42,7 @@ begin
           clk => clk,		-- Clock del sistema
           rst => rst,		-- Rest de v_ffd
           ena => ena,		-- Enable del v_ffd
-          D => Di,
+          D => Di_ff,
           Q => Qi
 	  );
     ACU <= Di and Qi;

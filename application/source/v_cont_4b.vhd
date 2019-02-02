@@ -15,7 +15,8 @@ entity v_cont_4b is
 		rst: in std_logic;		-- Reset del sistema
 		ena: in std_logic;		-- Enable del sistema
 		Q_ENA: out std_logic;	-- Aviso a 8	
- 		Q_RST: out std_logic	-- Aviso a 9 = 1001
+		Q_RST: out std_logic;	-- Aviso a 9 = 1001
+		Q: out std_logic_vector(3 downto 0)
 	);
 end v_cont_4b;
 
@@ -55,9 +56,9 @@ begin
    
    ffd0: v_ffd
        port map(
-          clk => clk,	-- Clock del v_ffd
-          rst => rst_x,	-- Reset del v_ffd
-          ena => ena,  	-- Enable del sistema
+          clk => clk,	    -- Clock del v_ffd
+          rst => rst_cont,	-- Reset del v_ffd
+          ena => ena,    	-- Enable del sistema
           D => Di_vec(0),	  
           Q => Qi_vec(0)
 	  );
@@ -68,7 +69,7 @@ begin
 	   v_cont_bin_base_i: v_cont_bin_base
 	      port map(
 	          clk => clk,
-	          rst => rst_x,
+	          rst => rst_cont,
 	          ena => ena,
 	          D => Di_vec(i),
 	          Q => Qi_vec(i),
@@ -84,5 +85,10 @@ begin
 
 --	8		=	  1			      0				     0					0    
     Q_ENA <= Qi_vec(3) and (not Qi_vec(2)) and (not Qi_vec(1)) and (not Qi_vec(0));
-    
+	
+-- Salidas para test bench
+	Q(3) <= Qi_vec(3);
+	Q(2) <= Qi_vec(2);
+	Q(1) <= Qi_vec(1);
+	Q(0) <= Qi_vec(0);
 end;

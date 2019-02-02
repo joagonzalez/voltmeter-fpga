@@ -12,7 +12,8 @@ entity c33000 is
 		rst: in std_logic;		-- Reset del sistema
 		ena: in std_logic;		-- Enable del sistema
 		Q_ENA: out std_logic;	-- Aviso a 33000	
- 		Q_RST: out std_logic	-- Aviso a 33001
+		Q_RST: out std_logic;	-- Aviso a 33001
+		Q: out std_logic_vector(15 downto 0)	-- salida
 	);
 end c33000;
 
@@ -39,9 +40,9 @@ component c_bu
 	);	
 end component;
 
-signal D_i, Q_i, C_i: std_logic_vector(15 downto 0); -- Cables vectoriales para indexación del contador
+signal D_i, Q_i, C_i: std_logic_vector(15 downto 0); -- Cables vectoriales para indexaciï¿½n del contador
 
-signal rst_end: std_logic;	-- Cable auxiliar para la lógica del reset de fin de cuenta
+signal rst_end: std_logic;	-- Cable auxiliar para la lï¿½gica del reset de fin de cuenta
 signal rst_x: std_logic;	-- Cable auxiliar de reset
 
 signal Q_x: std_logic_vector(3 downto 0);
@@ -52,8 +53,8 @@ begin
    
    ffd0: ffd
        port map(
-          clk => clk,	-- Clock del módulo
-          rst => rst_x,	-- Reset del módulo
+          clk => clk,	-- Clock del mï¿½dulo
+          rst => rst_x,	-- Reset del mï¿½dulo
           ena => ena,  	-- Enable del sistema
           D => D_i(0),	  
           Q => Q_i(0)
@@ -92,5 +93,22 @@ begin
 
 --	1		= 1			 1				0					0				0
     Q_ENA <= Q_x(0) and Q_i(3) and (not Q_i(2)) and (not (Q_i(1))) and (not Q_i(0));
-    
+	
+	Q(15) <= Q_i(15);
+	Q(14) <= Q_i(14);
+	Q(13) <= Q_i(13);
+	Q(12) <= Q_i(12);
+	Q(11) <= Q_i(11);
+	Q(10) <= Q_i(10);	
+	Q(9) <= Q_i(9);
+	Q(8) <= Q_i(8);
+	Q(7) <= Q_i(7);
+	Q(6) <= Q_i(6);
+	Q(5) <= Q_i(5);
+	Q(4) <= Q_i(4);
+	Q(3) <= Q_i(3);
+	Q(2) <= Q_i(2);
+	Q(1) <= Q_i(1);
+	Q(0) <= Q_i(0);
+
 end;
