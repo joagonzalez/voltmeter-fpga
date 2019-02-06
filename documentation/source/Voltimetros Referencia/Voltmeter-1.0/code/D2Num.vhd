@@ -1,5 +1,5 @@
---	Conversor digital a numérico BCD (D2Num):				--
---	Módulo para pasar de pulsos digitales a tres digitos	--
+--	Conversor digital a numï¿½rico BCD (D2Num):				--
+--	Mï¿½dulo para pasar de pulsos digitales a tres digitos	--
 --	decimales codificados en BCD							--
 --	Artista: Calcagno, Misael Dominique. Legajo: CyT-6322 	--
 
@@ -8,14 +8,14 @@ use IEEE.std_logic_1164.all;
 
 entity D2Num is
 	port(
-		clk: in std_logic;							-- Clock del módulo
+		clk: in std_logic;							-- Clock del mï¿½dulo
 		ena: in std_logic;							-- Enable del sistema
 		rst: in std_logic;							-- Reset del sistema
-		O_ADC: in std_logic; 						-- La salida del ADC entra acá
-		D1: out std_logic_vector(3 downto 0);		-- Salida codificada en BCD variable del Dígito más siginificativo
+		O_ADC: in std_logic; 						-- La salida del ADC entra acï¿½
+		D1: out std_logic_vector(3 downto 0);		-- Salida codificada en BCD variable del Dï¿½gito mï¿½s siginificativo
 		point: out std_logic_vector(3 downto 0);	-- Salida codificada constante del punto decimal
-		D2: out std_logic_vector(3 downto 0);		-- Salida codificada en BCD variable del segundo Dígito más siginificativo
-		D3: out std_logic_vector(3 downto 0);		-- Salida codificada en BCD variable del tercer Dígito más siginificativo
+		D2: out std_logic_vector(3 downto 0);		-- Salida codificada en BCD variable del segundo Dï¿½gito mï¿½s siginificativo
+		D3: out std_logic_vector(3 downto 0);		-- Salida codificada en BCD variable del tercer Dï¿½gito mï¿½s siginificativo
 		V: out std_logic_vector(3 downto 0)			-- Salida codificada constante de la "V"
 	 );
 end;
@@ -44,11 +44,11 @@ end component;
 
 component REG4
 	port(
-		clk: in std_logic;	-- Clock del módulo
+		clk: in std_logic;	-- Clock del mï¿½dulo
 		ena: in std_logic;	-- Enable del sistema
 		rst: in std_logic;	-- Reset del sistema
-		D_REG4: in std_logic_vector(3 downto 0);	-- Entrada vectorial al módulo
-		Q_REG4: out std_logic_vector(3 downto 0)	-- Salida vectorial del módulo
+		D_REG4: in std_logic_vector(3 downto 0);	-- Entrada vectorial al mï¿½dulo
+		Q_REG4: out std_logic_vector(3 downto 0)	-- Salida vectorial del mï¿½dulo
 	);
 end component;
 
@@ -56,7 +56,7 @@ signal Q_ENA, Q_RST, rst_x: std_logic;
 signal ena_i: std_logic_vector(4 downto 0); 
 signal C_i: std_logic_vector(4 downto 0);
 
-type matrix is array (4 downto 0) of std_logic_vector(3 downto 0); -- Creación del tipo matriz 5x4
+type matrix is array (4 downto 0) of std_logic_vector(3 downto 0); -- Creaciï¿½n del tipo matriz 5x4
 signal Qm, Chm: matrix;
 
 constant ct_V: std_logic_vector(0 to 3):=('1','0','1','1');		-- Constante "V" codificada
@@ -85,7 +85,7 @@ begin
 		      rst => rst_x,
 		      ena => ena_i(i),
 	         C => C_i(i),
-            Q => Qm(i)
+             Q => Qm(i)
 	      );
 	    chufa1: if i>1 generate	    
 	       ena_i(i) <= O_ADC and ena_i(i-1) and C_i(i-1);

@@ -1,7 +1,7 @@
 ------------------------------------------------------------
--- Module: Flip-Flop D
--- Description: Flip-Flop D rising edge and set/reset async
--- Authors: Franco Rota y Joaquin Gonzalez
+-- Module: v_ffd
+-- Description: Flip-Flop D module
+-- Authors: Franco Rota, David Wolovelsky y Joaquin Gonzalez
 -- ED1 - UNSAM
 -- 2019
 ------------------------------------------------------------

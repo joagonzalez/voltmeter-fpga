@@ -1,57 +1,38 @@
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.std_logic_unsigned.all;
-
-entity cont_BCD_tb is 
-
-end;
-
-architecture cont_BCD_tb_arq of cont_BCD_tb is
-	signal clk : std_logic := '0';
-	signal rst : std_logic := '1';
-	signal ena : std_logic := '1';
-	signal Q : std_logic_vector (3 downto 0);
-	signal hab : std_logic;
-begin 
- 	clk <= not clk after 10 ns;
-	ena <= '1' after 50 ns;
-	inst : entity work.cont_BCD port map (clk,ena,rst,hab,Q);
-	rst <= '0' after 85 ns;
-end;
-
----------------------
+------------------------------------------------------------
+-- Module: v_cont_33000_tb
+-- Description: 33000 binary counter testbench
+-- Authors: Franco Rota, David Wolovelsky y Joaquin Gonzalez
+-- ED1 - UNSAM
+-- 2019
+------------------------------------------------------------
 
 library IEEE;
 use IEEE.std_logic_1164.all;       
 
-entity test is
+entity v_cont_33000_tb is
 end;
 
-architecture test_cont_bin_sync_16ff of test is
-  component cont_bin_sync_16ff is
-    port(
-      EN, CLK, RST : in std_logic;
-      QA, QB, QC, QD : out std_logic;   
-      QE, QF, QG, QH: out std_logic;
-      QI, QJ, QK, QL: out std_logic;
-      QM, QN, QO, QP: out std_logic); 
-  end component;
-  
-signal en_t, clk_t, rst_t,       
-       qE_t, qF_t, qG_t, qH_t, 
-       qI_t, qJ_t, qK_t, qL_t,
-       qM_t, qN_t, qO_t, qP_t,
-       qA_t, qB_t, qC_t, qD_t : std_logic:='0'; 
-  
-begin
-  en_t  <= '0', '1' after 25 ns;
-  rst_t <= '1', '0' after 15 ns;
-  clk_t <= not clk_t after 10 ns;
-  
-  CONTADOR_BIN_16ff: cont_bin_sync_16ff port map(en_t, clk_t, rst_t, 
-                                                 qE_t, qF_t, qG_t, qH_t, 
-                                                 qI_t, qJ_t, qK_t, qL_t, 
-                                                 qM_t, qN_t, qO_t, qP_t,
-                                                 qA_t, qB_t, qC_t, qD_t); 
+architecture v_cont_33000_tb_arq of v_cont_33000_tb is
+    -- Entradas (se inicializan)
+    signal clk_tb : std_logic := '0';
+	signal rst_tb : std_logic := '1';
+    signal ena_tb : std_logic := '1';
+    -- Salidas
+    signal Q_tb : std_logic_vector(15 downto 0);
+    signal Q_ENA_tb : std_logic;
+    signal Q_RST_tb : std_logic;
+	
+begin 
+ 	clk_tb <= not clk_tb after 10 ns;
+	ena_tb <= '1' after 100 ns;
+	rst_tb <= '0' after 100 ns;
+
+    block_instance : entity work.v_cont_33000 port map (
+            clk => clk_tb,
+            rst => rst_tb,
+            ena => ena_tb,
+            Q_ENA => Q_ENA_tb,
+            Q_RST => Q_RST_tb,
+            Q => Q_tb
+        );
 end;
-     
