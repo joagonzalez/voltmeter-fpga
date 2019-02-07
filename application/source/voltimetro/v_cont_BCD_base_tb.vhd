@@ -13,6 +13,7 @@ entity v_cont_BCD_base_tb is
 end;
 
 architecture v_cont_BCD_base_tb_a of v_cont_BCD_base_tb is
+
     -- Entradas (se inicializan)
     signal clk_tb : std_logic := '0';
 	signal rst_tb : std_logic := '1';

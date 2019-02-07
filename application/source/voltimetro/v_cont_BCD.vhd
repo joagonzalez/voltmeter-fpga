@@ -43,22 +43,26 @@ signal Qi_aux: std_logic_vector(4 downto 0);
 type matrix is array (4 downto 0) of std_logic_vector(3 downto 0); -- Creacion del tipo matriz 5x4
 signal Qi_vec: matrix;
 
+begin
+
 rst_cont <= rst or rst_end;
 
 ENA_vec(0) <= ena;
 ENA_vec(1) <= ena and ACU_vec(0);
         
-cont_block: for i in 0 to 4 generate
-  v_cont_BCD_vec: v_cont_BCD
-      port map(
-          clk => clk,
-          rst => rst_cont,
-          ena => ENA_vec(i),
-          ACU => ACU_vec(i),
-          Q => Qi_vec(i)
-      );
+    cont_block: for i in 0 to 4 generate
+    v_cont_BCD_vec: v_cont_BCD_base
+        port map(
+            clk => clk,
+            rst => rst_cont,
+            ena => ENA_vec(i),
+            ACU => ACU_vec(i),
+            Q => Qi_vec(i)
+        );
 
-    condicion: if i>1 generate	    
-       ENA_vec(i) <= ena and ENA_vec(i-1) and ACU_vec(i-1);     
-    end generate condicion;
+        condicion: if i>1 generate	    
+            ENA_vec(i) <= ena and ENA_vec(i-1) and ACU_vec(i-1);     
+        end generate condicion;
+    end generate cont_block;
 
+end;
