@@ -26,7 +26,7 @@ begin
 	ena_tb <= '1' after 100 ns;
 	rst_tb <= '0' after 100 ns;
 
-    block_instance : entity work.v_cont_BCD port map (
+    block_instance : entity work.v_cont_BCD_base port map (
             clk => clk_tb,
             rst => rst_tb,
             ena => ena_tb,
