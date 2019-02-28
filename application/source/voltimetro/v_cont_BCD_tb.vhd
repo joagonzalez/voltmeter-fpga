@@ -8,8 +8,9 @@
 
 library IEEE;
 use IEEE.std_logic_1164.all;       
+use work.matrix_type.all;
 
-type matrix is array (4 downto 0) of std_logic_vector(3 downto 0); -- Creacion del tipo matriz 5x4
+--type matrix is array (4 downto 0) of std_logic_vector(3 downto 0); -- Creacion del tipo matriz 5x4
 
 entity v_cont_BCD_tb is
 end;
