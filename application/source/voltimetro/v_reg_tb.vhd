@@ -26,7 +26,7 @@ architecture v_reg_tb_a of v_reg_tb is
 begin
     clk_tb <= not clk_tb after 10 ns;
     rst_tb <= '0' after 50 ns;
-    ena_tb <= '1' after 100 ns;
+    ena_tb <= '1' after 100 ns, '0' after 150 ns;
     D_tb <= ("1001", "0101", "0000", "0110", "1000") after 200 ns;
 
     block_instance: entity work.v_reg port map(

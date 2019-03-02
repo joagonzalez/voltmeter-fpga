@@ -1,6 +1,10 @@
---	Multiplexor (mux):													--
---	Módulo para la determinación del caracter a imprimir a pantalla		--
---	Artista: Calcagno, Misael Dominique. Legajo: CyT-6322 				--
+------------------------------------------------------------
+-- Module: v_MUX
+-- Description: 5 to 1 multiplexor
+-- Authors: Franco Rota, David Wolovelsky y Joaquin Gonzalez
+-- ED1 - UNSAM
+-- 2019
+------------------------------------------------------------
 
 library IEEE;
 use IEEE.std_logic_1164.all;
@@ -8,12 +12,12 @@ use IEEE.numeric_std.all;
 
 entity mux is
     port(
-       D1: in std_logic_vector(3 downto 0);		-- Entrada codificada en BCD variable del Dígito más siginificativo
+       D1: in std_logic_vector(3 downto 0);		-- Entrada codificada en BCD variable del Dï¿½gito mï¿½s siginificativo
        point: in std_logic_vector(3 downto 0);	-- Entrada codificada constante del punto decimal
-       D2: in std_logic_vector(3 downto 0);		-- Entrada codificada en BCD variable del segundo Dígito más siginificativo 
-       D3: in std_logic_vector(3 downto 0);		-- Entrada codificada en BCD variable del tercer Dígito más siginificativo
+       D2: in std_logic_vector(3 downto 0);		-- Entrada codificada en BCD variable del segundo Dï¿½gito mï¿½s siginificativo 
+       D3: in std_logic_vector(3 downto 0);		-- Entrada codificada en BCD variable del tercer Dï¿½gito mï¿½s siginificativo
        V: in std_logic_vector(3 downto 0);		-- Entrada codificada constante del punto decimal
-       charb: in std_logic_vector(9 downto 0);	-- Posición horizontal del pixel 
+       charb: in std_logic_vector(9 downto 0);	-- Posiciï¿½n horizontal del pixel 
        mux_o: out std_logic_vector(3 downto 0)	-- Salida seleccionada
     );
 end mux;

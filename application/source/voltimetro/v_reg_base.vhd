@@ -16,8 +16,8 @@ entity v_reg_base is
         clk: in std_logic;
         rst: in std_logic;
         ena: in std_logic;
-        D_reg: in std_logic_vector(3 downto 0);
-        Q_reg: out std_logic_vector(3 downto 0)
+        D_reg_base: in std_logic_vector(3 downto 0);
+        Q_reg_base: out std_logic_vector(3 downto 0)
     );
 end;
 
@@ -39,8 +39,8 @@ begin
             clk => clk,
             rst => rst,
             ena => ena,
-            D => D_reg(i),
-            Q => Q_reg(i)
+            D => D_reg_base(i),
+            Q => Q_reg_base(i)
         );
     end generate reg_block;
 

@@ -28,8 +28,8 @@ architecture v_reg_a of v_reg is
 			clk: in std_logic;
 			rst: in std_logic;
 			ena: in std_logic;
-			D_reg: in std_logic_vector(3 downto 0);
-			Q_reg: out std_logic_vector(3 downto 0)
+			D_reg_base: in std_logic_vector(3 downto 0);
+			Q_reg_base: out std_logic_vector(3 downto 0)
 		);
 	end component;
 	
@@ -40,8 +40,8 @@ begin
 			clk => clk,
 			rst => rst,
 			ena => ena,
-			D_reg => D_reg(i),
-			Q_reg => Q_reg(i)
+			D_reg_base => D_reg(i),
+			Q_reg_base => Q_reg(i)
 		);
 	end generate reg_block;
 	

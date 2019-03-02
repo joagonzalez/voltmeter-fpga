@@ -34,8 +34,7 @@ architecture v_cont_BCD_a of v_cont_BCD is
     end component;
 
 -- Cables de conexion interna del modulo
-signal rst_cont: std_logic;
-signal rst_end: std_logic;
+
 signal ENA_vec: std_logic_vector(4 downto 0); 
 signal ACU_vec: std_logic_vector(4 downto 0);
 signal Qi_aux: std_logic_vector(4 downto 0);
@@ -45,7 +44,6 @@ signal Qi_vec: matrix;
 
 begin
 
-rst_cont <= rst or rst_end;
 
 ENA_vec(0) <= ena;
 ENA_vec(1) <= ena and ACU_vec(0);
@@ -54,7 +52,7 @@ ENA_vec(1) <= ena and ACU_vec(0);
     v_cont_BCD_vec: v_cont_BCD_base
         port map(
             clk => clk,
-            rst => rst_cont,
+            rst => rst,
             ena => ENA_vec(i),
             ACU => ACU_vec(i),
             Q => Qi_vec(i)
@@ -64,5 +62,11 @@ ENA_vec(1) <= ena and ACU_vec(0);
             ENA_vec(i) <= ena and ENA_vec(i-1) and ACU_vec(i-1);     
         end generate condicion;
     end generate cont_block;
+    
+Q(0) <= Qi_vec(0);
+Q(1) <= Qi_vec(1);
+Q(2) <= Qi_vec(2);
+Q(3) <= Qi_vec(3);
+Q(4) <= Qi_vec(4);
 
 end;

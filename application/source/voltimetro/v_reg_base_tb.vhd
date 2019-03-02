@@ -33,7 +33,7 @@ begin
             clk => clk_tb,
             rst => rst_tb,
             ena => ena_tb,
-            Q_reg => Q_tb,
-            D_reg => D_tb
+            Q_reg_base => Q_tb,
+            D_reg_base => D_tb
     );
 end v_reg_base_tb_a ; -- v_reg_base_tb
