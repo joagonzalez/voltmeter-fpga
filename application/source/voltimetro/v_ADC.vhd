@@ -14,39 +14,35 @@ entity v_ADC is
 		clk_ADC: in std_logic; 		-- Clock del sistema
 		rst_ADC: in std_logic;		-- Reset del sistema
 		ena_ADC: in std_logic;		-- Enable del sistema
-		vpositive: in std_logic;	-- Voltaje postivo de entrada al m�dulo
-		vnegative: out std_logic;	-- Voltaje negativo de salida del m�dulo
-		Q_ADC: out std_logic		-- Salida del m�dulo
+		D_ADC: in std_logic;		-- Voltaje postivo de entrada al modulo
+		Qn_ADC: out std_logic;		-- Voltaje negativo de salida del modulo
+		Q_ADC: out std_logic		-- Salida del modulo
 	);
 
 end v_ADC;
 
-architecture ADC_arch of ADC is
+architecture v_ADC_a of v_ADC is
 
-component ffd
+component v_ffd
 	port(
 		clk: in std_logic;
 		rst: in std_logic;
 		ena: in std_logic;
 		D: in std_logic;
-		Q: out std_logic
+		Q: out std_logic;
+		Qn: out std_logic
 	);
 end component;
 
-signal Qo: std_logic; 				-- Cable para conectar la salida del
-									-- flipflop a las salidas
-
+-- No se definen señales ya que el mapeo de entradas y salidas del modulo ADC y el ffd es directo
 begin
-	ffd_1: ffd
+	v_ffd0: v_ffd
 		port map(
 			clk => clk_ADC,
 			rst => rst_ADC,
 			ena => ena_ADC,
-			D => vpositive,
-			Q => Qo
+			D => D_ADC,
+			Q => Q_ADC,
+			Qn => Qn_ADC
 		);
-
-	vnegative <= not Qo;			-- Conecto la salida negativa
-	Q_ADC <= Qo;					-- Conecto la salida positiva del m�dulo
-
 end;

@@ -1,6 +1,6 @@
 Proyecto Final Electrónica Digital 1 - UNSAM
 ============================================
-
+Nota: Revisar de eliminar segundo AND en la habilitacion de los cont BCD en D2Num (O_ACD redundante)
 ## Voltímetro digital con salida VGA
 
 ### Objetivo:
@@ -62,6 +62,7 @@ implementación en VHDL se deberá realizar por comportamiento)
 - Lista de reproduccion: https://www.youtube.com/watch?v=vsoYlH1_hbc&list=PLWPirh4EWFpHk70zwYoHu87uVsCC8E2S-
 - Contador binario 4 bits Flip-Flop D: https://www.vlsifacts.com/circuit-design-4-bit-binary-counter-using-d-flip-flops/
 - ADC Sigma-Delta description: https://www.hardwaresecrets.com/how-analog-to-digital-converter-adc-works/9/
+- 1 bit DAC converter FFd: https://www.youtube.com/watch?v=DTCtx9eNHXE
 
 ### Simulador de circuitos
 

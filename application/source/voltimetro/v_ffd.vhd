@@ -15,7 +15,8 @@ entity v_ffd is
     port(
         clk, rst, ena: in std_logic;
         D: in std_logic;
-        Q: out std_logic
+        Q: out std_logic;
+        Qn: out std_logic
     );
 end;
 
@@ -31,6 +32,7 @@ architecture v_ffd_a of v_ffd is
             elsif rising_edge(clk) then
                 if ena = '1' then
                     Q <= D;
+                    Qn <= not D;
                 end if;
             end if;
         end process;
