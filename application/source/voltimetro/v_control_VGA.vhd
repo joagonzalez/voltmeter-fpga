@@ -7,6 +7,7 @@
 ------------------------------------------------------------
 library IEEE;
 use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
 
 entity v_control_VGA is
 	port (
@@ -78,16 +79,16 @@ begin
 
     cont_h: v_cont_h
         port map(
-            clk => clk;
-            ena => enah;
-            Q_ENA => enav;
+            clk => clk,
+            ena => enah,
+            Q_ENA => enav,
             Q => hc
         );
 
     conv_v: v_cont_v
         port map(
-            clk => clk;
-            ena => enav;
+            clk => clk,
+            ena => enav,
             Q => vc
         );
 

@@ -20,7 +20,12 @@ architecture v_reg_tb_a of v_reg_tb is
     signal rst_tb: std_logic := '1';
     signal ena_tb: std_logic := '0';
 
-    signal Q_tb : matrix;
+    signal D1_tb: std_logic_vector(3 downto 0);	
+    signal D2_tb: std_logic_vector(3 downto 0);	
+    signal D3_tb: std_logic_vector(3 downto 0);
+    signal point_tb: std_logic_vector(3 downto 0);
+    signal V_tb: std_logic_vector(3 downto 0);
+    
     signal D_tb : matrix := ("0000", "0101", "0110", "1000", "1001");
 
 begin
@@ -33,7 +38,11 @@ begin
             clk => clk_tb,
             rst => rst_tb,
             ena => ena_tb,
-            Q_reg => Q_tb,
+            D1 => D1_tb,
+            D2 => D2_tb,
+            D3 => D3_tb,
+            point => point_tb,
+            V => V_tb,
             D_reg => D_tb
     );
 end v_reg_tb_a ; -- v_reg_tb

@@ -41,7 +41,7 @@ component v_cont_bin_base
 	);	
 end component;
 
-signal Di_vec, Qi_vec, ACU_vec: std_logic_vector(10 downto 0); -- Conexiones vectoriales para la implementacion del contador
+signal Di_vec, Qi_vec, ACU_vec: std_logic_vector(9 downto 0); -- Conexiones vectoriales para la implementacion del contador hasta 800 y 801
 
 signal rst_end: std_logic;	-- Conexion de reset al finalizar de contar 801
 
@@ -75,12 +75,12 @@ begin
         Di_vec(i) <= ACU_vec(i-1);
 	end generate v_cont_bin_base_block;
 
---	801		=	 ‭001100100001‬ 
-    rst_end <= Qi_vec(10) and Qi_vec(9) and (not Qi_vec(8)) and (not Qi_vec(7)) and Qi_vec(6) and (not Qi_vec(5)) and (not Qi_vec(4)) and (not Qi_vec(3))  and (not Qi_vec(2)) and Qi_vec(1);   
+--	801		=	 ‭1100100001‬ 
+    rst_end <= Qi_vec(9) and Qi_vec(8) and (not Qi_vec(7)) and (not Qi_vec(6)) and Qi_vec(5) and (not Qi_vec(4)) and (not Qi_vec(3)) and (not Qi_vec(2))  and (not Qi_vec(1)) and Qi_vec(0);   
 
 
---	800		=	  001100100000
-	Q_ENA <= Qi_vec(10) and Qi_vec(9) and (not Qi_vec(8)) and (not Qi_vec(7)) and Qi_vec(6) and (not Qi_vec(5)) and (not Qi_vec(4)) and (not Qi_vec(3)) and (not Qi_vec(2)) and (not Qi_vec(1)) and Qi_vec(0);   
+--	800		=	 1100100000
+	Q_ENA <= Qi_vec(9) and Qi_vec(8) and (not Qi_vec(7)) and (not Qi_vec(6)) and Qi_vec(5) and (not Qi_vec(4)) and (not Qi_vec(3)) and (not Qi_vec(2)) and (not Qi_vec(1)) and (not Qi_vec(0));   
 
     Q <= Qi_vec;
 
