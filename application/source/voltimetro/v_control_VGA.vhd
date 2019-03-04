@@ -92,7 +92,7 @@ begin
             Q => vc
         );
 
-    -- Sincronismo horizontal y vertical. Se envian señales a la salida del controlador cuando hs<97 y vs<3
+    -- Sincronismo horizontal y vertical. Se envian señales a la salida del controlador cuando hc<97 y vc<3
 
     -- hs <= '1' when (unsigned(hc) <= hpw) else '0';
 	hs <= not(hc(9) or hc(8) or hc(7) or (hc(6) and hc(5) and (hc(4) or hc(3) or hc(2) or hc(1) or hc(0))));
@@ -100,6 +100,7 @@ begin
 	vs <= not(vc(9) or vc(8) or vc(7) or vc(6) or vc(5) or vc(4) or vc(3) or vc(2) or (vc(1) and vc(0)));
 
     -- Ubicacion dentro de la pantalla
+    -- hbp = 48 pixeles de bp y 96 pixeles de sincronismo 
 	-- pos_h <= std_logic_vector(unsigned(hc) - hbp) when (vidon = '1') else hc;
 	-- pos_v <= std_logic_vector(unsigned(vc) - vbp) when (vidon = '1') else vc;
 	aux_pos_h <= std_logic_vector(unsigned(hc) - hbp);

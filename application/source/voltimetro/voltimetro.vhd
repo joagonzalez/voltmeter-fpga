@@ -13,10 +13,10 @@ use work.matrix_type.all;
 entity voltimetro is
 	port(
 		clk: in std_logic;			-- Clock del sistema
-		rst_volti: in std_logic;	-- Reset del sistema
-		ena_volti: in std_logic;	-- Enable del sistema
-		vpositive_i: in std_logic;	-- Entrada de voltaje positivo al sistema
-		vnegative_i: out std_logic;	-- Salida de voltaje negativo del sistema
+		rst_v: in std_logic;	-- Reset del sistema
+		ena_v: in std_logic;	-- Enable del sistema
+		vpositive: in std_logic;	-- Entrada de voltaje positivo al sistema
+		vnegative: out std_logic;	-- Salida de voltaje negativo del sistema
 		hs_VGA: out std_logic;		-- Pulso de sincronismo horizontal
      	vs_VGA: out std_logic;		-- Pulso de sincronismo vertical
      	red_VGA: out std_logic;		-- Salida binaria al rojo
@@ -34,10 +34,10 @@ architecture voltimetro_a of voltimetro is
 	attribute loc: string;			-- Localidad del puerto
 	attribute iostandard: string;	-- Standard a utilizar
 
-	attribute iostandard of vpositive_i: signal is "LVCMOS33";	
-	attribute loc of vpositive_i: signal is "A4";
-	attribute iostandard of vnegative_i: signal is "LVCMOS33";	
-	attribute loc of vnegative_i: signal is "B4";
+	attribute iostandard of vpositive: signal is "LVCMOS33";	
+	attribute loc of vpositive: signal is "A4";
+	attribute iostandard of vnegative: signal is "LVCMOS33";	
+	attribute loc of vnegative: signal is "B4";
 
 	attribute loc of clk: signal is "C9";	-- Localidad del Clock de sistema (50 MHz)
 	
@@ -172,10 +172,10 @@ architecture voltimetro_a of voltimetro is
  
 begin
 
-    rst_aux <= rst_volti;
-    ena_aux <= ena_volti;
-    D_ADC_aux <= vpositive_i;
-    vnegative_i <= Qn_ADC_aux;
+    rst_aux <= rst_v;
+    ena_aux <= ena_v;
+    D_ADC_aux <= vpositive;
+    vnegative <= Qn_ADC_aux;
 
     v_div_frec_block: v_div_frec
         port map(
