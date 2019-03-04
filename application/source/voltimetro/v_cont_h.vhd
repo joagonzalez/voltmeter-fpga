@@ -41,7 +41,7 @@ component v_cont_bin_base
 	);	
 end component;
 
-signal Di_vec, Qi_vec, ACU_vec: std_logic_vector(9 downto 0); -- Conexiones vectoriales para la implementacion del contador
+signal Di_vec, Qi_vec, ACU_vec: std_logic_vector(10 downto 0); -- Conexiones vectoriales para la implementacion del contador
 
 signal rst_end: std_logic;	-- Conexion de reset al finalizar de contar 801
 

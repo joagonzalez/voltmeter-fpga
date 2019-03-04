@@ -10,10 +10,6 @@ end entity;
 
 architecture v_mux_2x1_a of v_mux_2x1 is
 
-    
-
 begin
-
-    mux_out <=  (mux_x and (not mux_sel) or (mux_y and mux_sel));
-
+    mux_out <=  ((mux_x and (not mux_sel)) or (mux_y and mux_sel));
 end architecture;
