@@ -1,0 +1,18 @@
+//! **************************************************************************
+// Written by: Map P.20131013 on Mon Mar 04 23:08:55 2019
+//! **************************************************************************
+
+SCHEMATIC START;
+NET "clk_BUFGP/IBUFG" BEL "clk_BUFGP/BUFG.GCLKMUX" USELOCALCONNECT;
+COMP "red_VGA" LOCATE = SITE "H14" LEVEL 1;
+COMP "vpositive" LOCATE = SITE "A4" LEVEL 1;
+COMP "clk" LOCATE = SITE "C9" LEVEL 1;
+COMP "hs_VGA" LOCATE = SITE "F15" LEVEL 1;
+COMP "vnegative" LOCATE = SITE "B4" LEVEL 1;
+COMP "vs_VGA" LOCATE = SITE "F14" LEVEL 1;
+COMP "ena_v" LOCATE = SITE "L13" LEVEL 1;
+COMP "grn_VGA" LOCATE = SITE "H15" LEVEL 1;
+COMP "rst_v" LOCATE = SITE "L14" LEVEL 1;
+COMP "blu_VGA" LOCATE = SITE "G15" LEVEL 1;
+SCHEMATIC END;
+

@@ -30,6 +30,7 @@ architecture voltimetro_a of voltimetro is
     signal clk_aux: std_logic;
     signal ena_aux: std_logic;
     signal rst_aux: std_logic;
+    signal clk_VGA: std_logic;
 
 	attribute loc: string;			-- Localidad del puerto
 	attribute iostandard: string;	-- Standard a utilizar
@@ -130,7 +131,8 @@ architecture voltimetro_a of voltimetro is
             D2: in std_logic_vector(3 downto 0);			-- Entrada codificada en BCD variable del segundo digito_in mas siginificativo 
             D3: in std_logic_vector(3 downto 0);			-- Entrada codificada en BCD variable del tercer digito_in mas siginificativo
             V: in std_logic_vector(3 downto 0);			-- Entrada codificada constante del punto decimal
-            h_pos: in std_logic_vector(9 downto 0);		-- Posicion horizontal del pixel 
+            h_pos: in std_logic_vector(9 downto 0);		-- Posicion horizontal del pixel
+            v_pos: in std_logic_vector(9 downto 0);		-- Posicion vertical del pixel 
             MUX_out: out std_logic_vector(3 downto 0)	-- Salida seleccionada
         );
     end component;
@@ -174,13 +176,14 @@ begin
 
     rst_aux <= rst_v;
     ena_aux <= ena_v;
+    clk_aux <= clk;
     D_ADC_aux <= vpositive;
     vnegative <= Qn_ADC_aux;
 
     v_div_frec_block: v_div_frec
         port map(
             clk => clk,
-            clk_out => clk_aux,
+            clk_out => clk_VGA,
             rst => rst_aux,
             ena =>ena_aux
         );
@@ -236,6 +239,7 @@ begin
             D3 => D3_aux,
             V => V_aux,
             h_pos => pos_h_aux,
+            v_pos => pos_v_aux,
             MUX_out => MUX_out_aux
         );
 
@@ -248,13 +252,13 @@ begin
         );
 
     -- Seleccion de color
-    red_aux <= rom_out_aux and '1';
+    red_aux <= rom_out_aux and '0';
     grn_aux <= rom_out_aux and '1';
     blu_aux <= rom_out_aux and '1';
 
     v_control_VGA_block: v_control_VGA
         port map(
-            clk => clk_aux,
+            clk => clk_VGA,  -- El modulo VGA utiliza una frecuencia de sincronismo de 25MHz
             red_i => red_aux,
             grn_i => grn_aux,
             blu_i => blu_aux,

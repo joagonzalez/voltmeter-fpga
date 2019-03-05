@@ -74,7 +74,7 @@ begin
         Di_vec(i) <= ACU_vec(i-1);
 	end generate v_cont_bin_base_block;
 
---	522		=	 ‭‭001000001010‬‬ 
+--	522		=	 ‭‭1000001010‬‬ 
     rst_end <= Qi_vec(9) and (not Qi_vec(8)) and (not Qi_vec(7)) and (not Qi_vec(6)) and (not Qi_vec(5)) and (not Qi_vec(4)) and Qi_vec(3) and (not Qi_vec(2)) and Qi_vec(1) and (not Qi_vec(0));
 
     Q <= Qi_vec;

@@ -13,6 +13,14 @@ entity v_CGA is
 end;
 
 architecture v_CGA_a of v_CGA is
+
+	component v_mux_2x1 is
+		port(
+			mux_x, mux_y, mux_sel: in std_logic;
+			mux_out: out std_logic
+		);
+	end component;
+
 	constant cero: matrix_ROM:= (
 								"00111100",
 								"01000010",
@@ -161,15 +169,27 @@ architecture v_CGA_a of v_CGA is
     signal pos_h: std_logic_vector(2 downto 0);	-- Cable vectorial para la determinacion del pixel horizontal
     signal pos_v: std_logic_vector(2 downto 0);	-- Cable vectorial para la determinacion del pixel vertical
 
+	signal v_cond: std_logic;
+	signal char_out: std_logic;
 begin
 
 	pos_h <= font_x(6)&font_x(5)&font_x(4); -- Determinacion del pixel horizontal
 	pos_v <= font_y(6)&font_y(5)&font_y(4); -- Determinacion del pixel vertical
 
 	digito <= to_integer(unsigned(char));	-- Determinacion del subondice para el caracter seleccionado
-	h <= to_integer(unsigned(pos_h));	-- Determinacion del subondice para el pixel horizontal
-	v <= to_integer(unsigned(pos_v));	-- Determinacion del subondice para el pixel vertical
+	h <= to_integer(unsigned(pos_h));	-- Determinacion del subindice para el pixel horizontal
+	v <= to_integer(unsigned(pos_v));	-- Determinacion del subindice para el pixel vertical
 
-	rom_out <= ROM(digito)(v)(h);	-- Salida binaria
+	-- Condicion para habilitar salida
+	v_cond <= (not font_y(9)) and (not font_y(8)) and font_y(7);
+	-- Caracter seleccionado
+	char_out <= ROM(digito)(v)(h);
 
+	mux_selector: v_mux_2x1
+		port map(
+			mux_x => '0',
+			mux_y => char_out,
+			mux_sel => v_cond,
+			mux_out => rom_out
+		);
 end;

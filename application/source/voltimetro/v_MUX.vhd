@@ -18,7 +18,8 @@ entity v_MUX is
        D2: in std_logic_vector(3 downto 0);			-- Entrada codificada en BCD variable del segundo digito_in mas siginificativo 
        D3: in std_logic_vector(3 downto 0);			-- Entrada codificada en BCD variable del tercer digito_in mas siginificativo
        V: in std_logic_vector(3 downto 0);			-- Entrada codificada constante del punto decimal
-       h_pos: in std_logic_vector(9 downto 0);		-- Posicion horizontal del pixel 
+       h_pos: in std_logic_vector(9 downto 0);		-- Posicion horizontal del pixel
+       v_pos: in std_logic_vector(9 downto 0);		-- Posicion vertical del pixel
        MUX_out: out std_logic_vector(3 downto 0)	-- Salida seleccionada
     );
 end v_MUX;
@@ -30,20 +31,20 @@ signal digito_in, digito_out: matrix;
 
 begin
 
---	1		=		0			0			0					Franja de pantalla 1/5
-selector(0) <= not (h_pos(9) or h_pos(8) or h_pos(7));
+--	1		=		0			0			0					Franja de pantalla 1/5  y fijando franja vertical 001
+selector(0) <= (not (h_pos(9) or h_pos(8) or h_pos(7))) and ((not v_pos(9)) and (not v_pos(8)) and v_pos(7));
 
---	1		=		0					0			  1			Franja de pantalla 2/5
-selector(1) <= (not h_pos(9)) and (not h_pos(8)) and h_pos(7);
+--	1		=		0					0			  1			Franja de pantalla 2/5 y fijando franja vertical 001
+selector(1) <= ((not h_pos(9)) and (not h_pos(8)) and h_pos(7)) and ((not v_pos(9)) and (not v_pos(8)) and v_pos(7));
 
---	1		=		0				1				0			Franja de pantalla 3/5
-selector(2) <= (not h_pos(9)) and h_pos(8) and (not h_pos(7));
+--	1		=		0				1				0			Franja de pantalla 3/5 y fijando franja vertical 001
+selector(2) <= ((not h_pos(9)) and h_pos(8) and (not h_pos(7))) and ((not v_pos(9)) and (not v_pos(8)) and v_pos(7));
 
---	1		=		0				1			1				Franja de pantalla 4/5
-selector(3) <= (not h_pos(9)) and h_pos(8) and h_pos(7);
+--	1		=		0				1			1				Franja de pantalla 4/5 y fijando franja vertical 001
+selector(3) <= ((not h_pos(9)) and h_pos(8) and h_pos(7)) and ((not v_pos(9)) and (not v_pos(8)) and v_pos(7));
 
---	1		=	1				  0					0			Franja de pantalla 5/5
-selector(4) <= h_pos(9) and (not h_pos(8)) and (not h_pos(7));
+--	1		=	1				  0					0			Franja de pantalla 5/5 y fijando franja vertical 001
+selector(4) <= (h_pos(9) and (not h_pos(8)) and (not h_pos(7))) and ((not v_pos(9)) and (not v_pos(8)) and v_pos(7));
 	
 	digito_in(0) <= D1;
 	digito_in(1) <= punto;

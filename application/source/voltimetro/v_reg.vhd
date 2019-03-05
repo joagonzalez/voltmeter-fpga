@@ -39,8 +39,8 @@ architecture v_reg_a of v_reg is
 	end component;
 	
 	-- A la salida tendremos las coordenadas ROM para los caracteres V y punto decimal
-	constant ct_V: std_logic_vector(0 to 3):=('1','0','1','1');		-- Constante "V" codificada
-	constant ct_point: std_logic_vector(0 to 3):=('1','0','1','0');	-- Constante punto decimal codificado
+	constant ct_V: std_logic_vector(0 to 3):=('1','0','1','0');		-- Constante "V" codificada
+	constant ct_point: std_logic_vector(0 to 3):=('1','0','1','1');	-- Constante punto decimal codificado
 	signal   Q_reg_aux: matrix;
 
 begin

@@ -22,6 +22,7 @@ architecture v_MUX_tb_a of v_MUX_tb is
     signal D3_tb : std_logic_vector(3 downto 0) := "0010";
     signal V_tb : std_logic_vector(3 downto 0) := "1110";
     signal h_pos_tb : std_logic_vector(9 downto 0) := "0000000000";
+    signal v_pos_tb : std_logic_vector(9 downto 0) := "0000000000";
 
     signal MUX_out_tb : std_logic_vector(3 downto 0);
 
@@ -35,6 +36,7 @@ begin
             D3 => D3_tb,
             V => V_tb,
             h_pos => h_pos_tb,
+            v_pos => v_pos_tb,
             MUX_out => MUX_out_tb       
             );
 
