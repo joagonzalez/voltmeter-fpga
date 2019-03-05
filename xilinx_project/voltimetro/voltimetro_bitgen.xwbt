@@ -1,8 +1,0 @@
-INTSTYLE=ise
-INFILE=C:\Users\laplace\Desktop\Git\voltimetro\xilinx_project\voltimetro\voltimetro.ncd
-OUTFILE=C:\Users\laplace\Desktop\Git\voltimetro\xilinx_project\voltimetro\voltimetro.bit
-FAMILY=Spartan3E
-PART=xc3s500e-4fg320
-WORKINGDIR=C:\Users\laplace\Desktop\Git\voltimetro\xilinx_project\voltimetro
-LICENSE=WebPack
-USER_INFO=211695948_0_0_417

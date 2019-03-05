@@ -180,7 +180,7 @@ begin
 	h <= to_integer(unsigned(pos_h));	-- Determinacion del subindice para el pixel horizontal
 	v <= to_integer(unsigned(pos_v));	-- Determinacion del subindice para el pixel vertical
 
-	-- Condicion para habilitar salida
+	-- Condicion para habilitar salida (001)
 	v_cond <= (not font_y(9)) and (not font_y(8)) and font_y(7);
 	-- Caracter seleccionado
 	char_out <= ROM(digito)(v)(h);
