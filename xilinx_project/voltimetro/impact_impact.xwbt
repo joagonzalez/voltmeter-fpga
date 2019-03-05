@@ -1,0 +1,8 @@
+INTSTYLE=impact
+INFILE=C:\Users\laplace\Desktop\Git\voltimetro\xilinx_project\voltimetro\impact.xsl
+OUTFILE=C:\Users\laplace\Desktop\Git\voltimetro\xilinx_project\voltimetro\impact.xsl
+FAMILY=Multiple
+PART=Multiple
+WORKINGDIR=C:\Users\laplace\Desktop\Git\voltimetro\xilinx_project\voltimetro
+LICENSE=iMPACT
+USER_INFO=iMPACT
