@@ -1,5 +1,3 @@
-Proyecto Final Electrónica Digital 1 - UNSAM
-============================================
 ## Voltímetro digital con salida VGA
 
 ![Figura 1](https://github.com/joagonzalez/voltimetro/blob/develop/documentation/images/voltimetro.png)
