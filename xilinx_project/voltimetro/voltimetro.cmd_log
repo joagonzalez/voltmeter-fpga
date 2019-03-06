@@ -1,6 +1,0 @@
-xst -intstyle ise -ifn "C:/Users/laplace/Desktop/Git/voltimetro/xilinx_project/voltimetro/voltimetro.xst" -ofn "C:/Users/laplace/Desktop/Git/voltimetro/xilinx_project/voltimetro/voltimetro.syr" 
-ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc3s500e-fg320-4 voltimetro.ngc voltimetro.ngd  
-map -intstyle ise -p xc3s500e-fg320-4 -cm area -ir off -pr off -c 100 -o voltimetro_map.ncd voltimetro.ngd voltimetro.pcf 
-par -w -intstyle ise -ol high -t 1 voltimetro_map.ncd voltimetro.ncd voltimetro.pcf 
-trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml voltimetro.twx voltimetro.ncd -o voltimetro.twr voltimetro.pcf 
-bitgen -intstyle ise -f voltimetro.ut voltimetro.ncd 

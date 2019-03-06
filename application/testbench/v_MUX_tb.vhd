@@ -28,7 +28,7 @@ architecture v_MUX_tb_a of v_MUX_tb is
 
 begin
     h_pos_tb <= "0010000000" after 150 ns, "0100000000" after 250 ns, "0110000000" after 350 ns, "1000000000" after 450 ns;
-
+    v_pos_tb <= "0010000000";
     block_instance: entity work.v_MUX port map(
             D1 => D1_tb,
             punto => punto_tb,
