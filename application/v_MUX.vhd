@@ -1,7 +1,7 @@
 ------------------------------------------------------------
 -- Module: v_MUX
 -- Description: 5 to 1 multiplexer
--- Authors: Franco Rota, David Wolovelsky y Joaquin Gonzalez
+-- Authors: David Wolovelsky y Joaquin Gonzalez
 -- ED1 - UNSAM
 -- 2019
 ------------------------------------------------------------

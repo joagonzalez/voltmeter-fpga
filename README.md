@@ -1,60 +1,108 @@
 Proyecto Final Electrónica Digital 1 - UNSAM
 ============================================
-Nota: Revisar de eliminar segundo AND en la habilitacion de los cont BCD en D2Num (O_ACD redundante)
 ## Voltímetro digital con salida VGA
+
+![Figura 1](https://github.com/joagonzalez/voltimetro/blob/develop/documentation/images/voltimetro.png)
 
 ### Objetivo:
 
-El objetivo del presente Trabajo Práctico consiste en especificar, diseñar, describir una
-arquitectura, simular, sintetizar e implementar en FPGA un sistema digital para un voltímetro
-digital con salida VGA. 
+El objetivo de este trabajo es implementar, en lenguaje descriptor de hardware VHDL, un voltimetro digital conformado por un conversor analógico-digital Sigma-Delta a la entrada para realizar el muestreo y la conversión de la señal a medir. Al la salida del sistema, la medición realizada será enviada al módulo VGA de la placa Spartan-3E. 
+
+Los tres módulos principales del voltímetro se identifican de la siguiente manera:
+- Bloque que se encarga de digitalizar el voltaje de entrada que se desea medir
+- Bloque controlador VGA que se encarga de producir la señal de sincronismo e indicar en qué posición (horizontal y vertical) de la pantalla se encuentra en ese momento.
+- Bloque que se encarga de encender los píxeles correspondientes a los caracteres que se desea proyectar en la pantalla
+
+### Esquema de conexión física
+
+![Figura 2](https://github.com/joagonzalez/voltimetro/blob/develop/documentation/images/Conexion_Spartan.png)
+
 
 ### Especificaciones:
+- Fabricante: Xilinx
+- Familia: Spartan 3E
+- Modelo: XC3S500E
+- Encapsulado: FG320
+- Speed: -4
+- Clock: 50MHz
+- Clock VGA: 25MHz (utilizando bloque divisor de frecuencia)
 
-Implementar en lenguaje descriptor de hardware VHDL un voltímetro conformado por
-un conversor A/D Sigma-Delta con salida VGA.
+### Base de caracteres ROM:
 
--  Sintetizar con la herramienta ISE la descripción de hardware para la FPGA:
-    - Fabricante: Xilinx
-    - Familia: Spartan 3E
-    - Modelo: XC3S500E
-    - Encapsulado: FG320
-    - Speed: -4
-- Implementar la descripción en el kit de desarrollo Spartan-3E Starter Board de la
-empresa Digilent.
-    - Generar un informe (no más de 10 hojas, sin contar el código) que incluya:
-    - Diagrama en bloques, entradas y salidas de cada bloque.
-    - Simulaciones (incluyendo algunas capturas de pantalla).
-    - Tabla de resumen de síntesis, detallando slices, Flip-Flops y LUTs utilizadas (con
-    indicación de porcentajes de utilización del dispositivo).
-    - Código fuente VHDL. 
+![Figura 3](https://github.com/joagonzalez/voltimetro/blob/develop/documentation/images/v_CGA.png)
 
-### Desarrollo:
+![Figura 4](https://github.com/joagonzalez/voltimetro/blob/develop/documentation/images/sincronismo_VGA.png)
 
-El diagrama en bloques de la arquitectura propuesta se puede observar en la Figura 1. La idea de este trabajo es implementar un conversor A/D Sigma-Delta utilizando uno de los flip-flops presentes en los bloques lógicos de la FPGA, seguido de un contador que dará cuenta de la cantidad de unos a la salida del dicho flip-flop, en un determinado tiempo (cantidad dada de ciclos de reloj).
-El valor obtenido se mostrará en un monitor a través de la interfaz VGA
-existente en el kit de desarrollo. 
+Flag que habilita señal de salida del módulo v_CGA en base a la celda vertical en la que se encuentra el barrido. 
 
-![Figura 1](https://github.com/joagonzalez/unsam_digitales_1/blob/master/documentation/images/diagrama_bloques_arquitectura_voltimetro.png)
+```
+    pos_h <= font_x(6)&font_x(5)&font_x(4); -- Determinacion del pixel horizontal
+    pos_v <= font_y(6)&font_y(5)&font_y(4); -- Determinacion del pixel vertical
 
-![Figura 2](https://github.com/joagonzalez/unsam_digitales_1/blob/master/documentation/images/diagrama_procesamiento_control.png)
+-- Determinacion del subondice para el caracter seleccionado
+    digito <= to_integer(unsigned(char)); 
+  
+-- Determinacion del subindice para el pixel horizontal
+    h <= to_integer(unsigned(pos_h));   
+-- Determinacion del subindice para el pixel vertical
+    v <= to_integer(unsigned(pos_v));   
 
-Los componentes básicos de la arquitectura son:
-- Flip-Flop: Se utilizará un flip-flop de uno de los bloques lógicos de la FPGA (la
-implementación en VHDL se deberá realizar por comportamiento)
-- Bloque de procesamiento de datos y control: este bloque es el encargado de procesar los datos obtenidos de la salida Q del flip-flop D de entrada (la implementación en VHDL se deberá realizar de manera estructural). Estará conformado por un contador por décadas, un contador binario, un registro, una ROM de caracteres (para almacenar los caracteres ‘0’, …, ‘9’, ‘.’, ‘V’ y ‘ ’), un controlador de VGA y un bloque de lógica encargado del control general. 
+    -- Condicion para habilitar salida (001)
+    v_cond <= (not font_y(9)) and (not font_y(8)) and font_y(7);
+    -- Caracter seleccionado
+    char_out <= ROM(digito)(v)(h);
 
-### Entregables: 
+    mux_selector: v_mux_2x1
+        port map(
+            mux_x => '0',
+            mux_y => char_out,
+            mux_sel => v_cond,
+            mux_out => rom_out
+        );
+```
 
-- Código VHDL
-- Informe conteniendo:
-- Breve explicación de lo desarrollado en el trabajo
-- Diagrama en bloques (detallando entradas y salidas)
-- Explicación de la funcionalidad de cada bloque
-- Resumen de utilización de recursos y tiempos (datos entregados por la herramienta ISE) 
+### Lógica de selección de caracter con multiplexor 5x1
+En base a las señales de barrido horizonal y vertical generamos la mascara binaria selectora del dígito correspondiente
+
+![Figura 5](https://github.com/joagonzalez/voltimetro/blob/develop/documentation/images/v_MUX.png)
+
+A este bloque se le agrega una mejora adicional para poder identificar posicion en base a señal de sincronismo vertical. Esto mismo termina de realizarse en el bloque v_CGA.
+
+```
+--	1		=		000    Franja de pantalla 1/5  y fijando franja vertical 001
+selector(0) <= (not (h_pos(9) or h_pos(8) or h_pos(7))) and ((not v_pos(9)) and (not v_pos(8)) and v_pos(7));
+
+--	1		=		001    Franja de pantalla 2/5 y fijando franja vertical 001
+selector(1) <= ((not h_pos(9)) and (not h_pos(8)) and h_pos(7)) and ((not v_pos(9)) and (not v_pos(8)) and v_pos(7));
+
+--	1		=		010    Franja de pantalla 3/5 y fijando franja vertical 001
+selector(2) <= ((not h_pos(9)) and h_pos(8) and (not h_pos(7))) and ((not v_pos(9)) and (not v_pos(8)) and v_pos(7));
+
+--	1		=		011    Franja de pantalla 4/5 y fijando franja vertical 001
+selector(3) <= ((not h_pos(9)) and h_pos(8) and h_pos(7)) and ((not v_pos(9)) and (not v_pos(8)) and v_pos(7));
+
+--	1		=	    100    Franja de pantalla 5/5 y fijando franja vertical 001
+selector(4) <= (h_pos(9) and (not h_pos(8)) and (not h_pos(7))) and ((not v_pos(9)) and (not v_pos(8)) and v_pos(7));
+	
+	digito_in(0) <= D1;
+	digito_in(1) <= punto;
+	digito_in(2) <= D2;
+	digito_in(3) <= D3;
+	digito_in(4) <= V;
+	
+	digito_out_block : for i in 0 to 4 generate
+	   digito_out(i) <= (digito_in(i)(3)and selector(i))&(digito_in(i)(2)and selector(i))&(digito_in(i)(1)and selector(i))&(digito_in(i)(0)and selector(i));
+	end generate digito_out_block;
+	
+	MUX_out <= digito_out(4) or digito_out(3) or digito_out(2) or digito_out(1) or digito_out(0);
+```
+
+### Programación de kit Spartan-3E con Xilinx ISE:
+
+https://github.com/joagonzalez/voltimetro/blob/develop/documentation/Program%20Spartan-3E%20using%20Xilinx%20ISE.mp4
+
 
 ### Material de consulta
-
 - Contador Binario: https://www.youtube.com/watch?v=_o6NkZKH0yg
 - Flip-Flop T: https://www.youtube.com/watch?v=wK5qJGI8qBA
 - Flip-Flop D: https://www.youtube.com/watch?v=kQ9WICIFWnU
@@ -65,7 +113,6 @@ implementación en VHDL se deberá realizar por comportamiento)
 - 1 bit DAC converter FFd: https://www.youtube.com/watch?v=DTCtx9eNHXE
 
 ### Simulador de circuitos
-
 - https://www.falstad.com/circuit/
 
 ### VHDL tutorial plus example

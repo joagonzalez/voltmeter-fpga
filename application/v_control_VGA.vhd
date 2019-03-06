@@ -1,7 +1,7 @@
 ------------------------------------------------------------
 -- Module: v_control_VGA
 -- Description: VGA controller
--- Authors: Franco Rota, David Wolovelsky y Joaquin Gonzalez
+-- Authors: David Wolovelsky y Joaquin Gonzalez
 -- ED1 - UNSAM
 -- 2019
 ------------------------------------------------------------

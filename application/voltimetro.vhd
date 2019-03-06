@@ -1,7 +1,7 @@
 ------------------------------------------------------------
 -- Module: Voltimetro
--- Description: Voltimeter implementation
--- Authors: Franco Rota, David Wolovelsky y Joaquin Gonzalez
+-- Description: Voltmeter implementation
+-- Authors: David Wolovelsky y Joaquin Gonzalez
 -- ED1 - UNSAM
 -- 2019
 ------------------------------------------------------------

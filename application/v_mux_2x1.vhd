@@ -1,3 +1,11 @@
+------------------------------------------------------------
+-- Module: v_mux_2x1
+-- Description: 2 to 1 generic multiplexer
+-- Authors: David Wolovelsky y Joaquin Gonzalez
+-- ED1 - UNSAM
+-- 2019
+------------------------------------------------------------
+
 library IEEE;
 use IEEE.std_logic_1164.all;
 

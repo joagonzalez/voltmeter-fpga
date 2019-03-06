@@ -1,7 +1,7 @@
 ------------------------------------------------------------
 -- Module: v_reg_base
--- Description: Digit register module testebench
--- Authors: Franco Rota, David Wolovelsky y Joaquin Gonzalez
+-- Description: Digit register module testbench
+-- Authors: David Wolovelsky y Joaquin Gonzalez
 -- ED1 - UNSAM
 -- 2019
 ------------------------------------------------------------

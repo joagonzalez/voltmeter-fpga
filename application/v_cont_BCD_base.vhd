@@ -1,7 +1,7 @@
 ------------------------------------------------------------
 -- Module: v_cont_BCD_base
 -- Description: BCD Counter 4 decades module
--- Authors: Franco Rota, David Wolovelsky y Joaquin Gonzalez
+-- Authors: David Wolovelsky y Joaquin Gonzalez
 -- ED1 - UNSAM
 -- 2019
 ------------------------------------------------------------

@@ -1,7 +1,7 @@
 ------------------------------------------------------------
 -- Module: v_cont_33000_tb
 -- Description: 33000 binary counter testbench
--- Authors: Franco Rota, David Wolovelsky y Joaquin Gonzalez
+-- Authors: David Wolovelsky y Joaquin Gonzalez
 -- ED1 - UNSAM
 -- 2019
 ------------------------------------------------------------

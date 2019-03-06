@@ -1,7 +1,7 @@
 ------------------------------------------------------------
 -- Module: v_ACD
 -- Description: Analog to Digital Converter
--- Authors: Franco Rota, David Wolovelsky y Joaquin Gonzalez
+-- Authors: David Wolovelsky y Joaquin Gonzalez
 -- ED1 - UNSAM
 -- 2019
 ------------------------------------------------------------

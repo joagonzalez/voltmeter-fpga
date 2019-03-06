@@ -1,3 +1,11 @@
+------------------------------------------------------------
+-- Module: v_CGA
+-- Description: ROM characters database and v_pos logic 
+-- Authors: David Wolovelsky y Joaquin Gonzalez
+-- ED1 - UNSAM
+-- 2019
+------------------------------------------------------------
+
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;

@@ -1,7 +1,7 @@
 ------------------------------------------------------------
 -- Module: v_cont_BCD
 -- Description: BCD Counter with 4 modules testbench
--- Authors: Franco Rota, David Wolovelsky y Joaquin Gonzalez
+-- Authors: David Wolovelsky y Joaquin Gonzalez
 -- ED1 - UNSAM
 -- 2019
 ------------------------------------------------------------
