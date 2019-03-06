@@ -97,7 +97,7 @@ selector(4) <= (h_pos(9) and (not h_pos(8)) and (not h_pos(7))) and ((not v_pos(
 
 ### Programación de kit Spartan-3E con Xilinx ISE:
 
-https://github.com/joagonzalez/voltimetro/blob/develop/documentation/Program%20Spartan-3E%20using%20Xilinx%20ISE.mp4
+https://www.useloom.com/share/d45cef04821c4ec081f3bdbafc6b1c5d
 
 
 ### Material de consulta
