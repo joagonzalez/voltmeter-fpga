@@ -1,0 +1,5 @@
+cd c:\Xilinx\14.7\ISE_DS\
+REN ISE\lib\nt64\libPortability.dll libPortability.dll.org
+COPY ISE\lib\nt64\libPortabilityNOSH.dll ISE\lib\nt64\libPortability.dll
+REN common\lib\nt64\libPortability.dll libPortability.dll.org
+COPY ISE\lib\nt64\libPortabilityNOSH.dll  common\lib\nt64\libPortability.dll
