@@ -8,8 +8,8 @@ El objetivo de este trabajo es implementar, en lenguaje descriptor de hardware V
 
 Los tres módulos principales del voltímetro se identifican de la siguiente manera:
 - Bloque que se encarga de digitalizar el voltaje de entrada que se desea medir
-- Bloque controlador VGA que se encarga de producir la señal de sincronismo e indicar en qué posición (horizontal y vertical) de la pantalla se encuentra en ese momento.
-- Bloque que se encarga de encender los píxeles correspondientes a los caracteres que se desea proyectar en la pantalla
+- Bloque controlador VGA que se encarga de producir la señal de sincronismo e indicar en qué posición (horizontal y vertical) de la pantalla se encuentra el barrido en ese momento.
+- Bloque que se encarga de encender los píxeles correspondientes a los caracteres que se desea proyectar en la pantalla (ROM)
 
 ### Esquema de conexión física
 
