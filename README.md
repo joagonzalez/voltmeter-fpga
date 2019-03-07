@@ -33,7 +33,7 @@ Los tres módulos principales del voltímetro se identifican de la siguiente man
 
 Flag que habilita señal de salida del módulo v_CGA en base a la celda vertical en la que se encuentra el barrido. 
 
-```
+```vhdl
     pos_h <= font_x(6)&font_x(5)&font_x(4); -- Determinacion del pixel horizontal
     pos_v <= font_y(6)&font_y(5)&font_y(4); -- Determinacion del pixel vertical
 
@@ -66,7 +66,7 @@ En base a las señales de barrido horizonal y vertical generamos la mascara bina
 
 A este bloque se le agrega una mejora adicional para poder identificar posicion en base a señal de sincronismo vertical. Esto mismo termina de realizarse en el bloque v_CGA.
 
-```
+```vhdl
 --	1		=		000    Franja de pantalla 1/5  y fijando franja vertical 001
 selector(0) <= (not (h_pos(9) or h_pos(8) or h_pos(7))) and ((not v_pos(9)) and (not v_pos(8)) and v_pos(7));
 
