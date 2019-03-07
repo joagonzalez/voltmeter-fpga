@@ -96,23 +96,22 @@ selector(4) <= (h_pos(9) and (not h_pos(8)) and (not h_pos(7))) and ((not v_pos(
 ```
 
 ### Programación de kit Spartan-3E con Xilinx ISE:
-
 https://www.useloom.com/share/d45cef04821c4ec081f3bdbafc6b1c5d
 
 
 ### Material de consulta
 - Contador Binario: https://www.youtube.com/watch?v=_o6NkZKH0yg
-- Flip-Flop T: https://www.youtube.com/watch?v=wK5qJGI8qBA
-- Flip-Flop D: https://www.youtube.com/watch?v=kQ9WICIFWnU
+- flip-flop T: https://www.youtube.com/watch?v=wK5qJGI8qBA
+- flip-flop D: https://www.youtube.com/watch?v=kQ9WICIFWnU
 - Multiplexor: https://www.youtube.com/watch?v=oRIKoCm1eA8
 - Lista de reproduccion: https://www.youtube.com/watch?v=vsoYlH1_hbc&list=PLWPirh4EWFpHk70zwYoHu87uVsCC8E2S-
-- Contador binario 4 bits Flip-Flop D: https://www.vlsifacts.com/circuit-design-4-bit-binary-counter-using-d-flip-flops/
-- ADC Sigma-Delta description: https://www.hardwaresecrets.com/how-analog-to-digital-converter-adc-works/9/
-- 1 bit DAC converter FFd: https://www.youtube.com/watch?v=DTCtx9eNHXE
+- Contador binario 4 bits flip-flop d: https://www.vlsifacts.com/circuit-design-4-bit-binary-counter-using-d-flip-flops/
+- ADC Sigma-Delta: https://www.hardwaresecrets.com/how-analog-to-digital-converter-adc-works/9/
+- 1 bit DAC basado en flip-flop d: https://www.youtube.com/watch?v=DTCtx9eNHXE
 
 ### Simulador de circuitos
 - https://www.falstad.com/circuit/
 
-### VHDL tutorial plus example
+### Tutorial VHDL
 - https://www.seas.upenn.edu/~ese171/vhdl/vhdl_primer.html#Fourbitadder#Fourbitadder
 - http://www.srmuniv.ac.in/ramapuram/sites/ramapuram/files/EC308.pdf
