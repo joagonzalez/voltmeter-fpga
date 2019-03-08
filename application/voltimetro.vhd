@@ -7,16 +7,18 @@
 ------------------------------------------------------------
 
 library IEEE;
-use IEEE.std_logic_1164.all;       
+use IEEE.std_logic_1164.all; 
+use IEEE.numeric_std.all;      
 use work.matrix_type.all;
 
 entity voltimetro is
 	port(
 		clk: in std_logic;			-- Clock del sistema
-		rst_v: in std_logic;	-- Reset del sistema
-		ena_v: in std_logic;	-- Enable del sistema
+		rst_v: in std_logic;	    -- Reset del sistema
+		ena_v: in std_logic;	    -- Enable del sistema
 		vpositive: in std_logic;	-- Entrada de voltaje positivo al sistema
-		vnegative: out std_logic;	-- Salida de voltaje negativo del sistema
+		vnegative: in std_logic;	-- Entrada de voltaje negativo del sistema
+		volt_fb: out std_logic;     -- Salida del SigmaDelta
 		hs_VGA: out std_logic;		-- Pulso de sincronismo horizontal
      	vs_VGA: out std_logic;		-- Pulso de sincronismo vertical
      	red_VGA: out std_logic;		-- Salida binaria al rojo
@@ -31,20 +33,33 @@ architecture voltimetro_a of voltimetro is
     signal ena_aux: std_logic;
     signal rst_aux: std_logic;
     signal clk_VGA: std_logic;
+	
+	-- Mapeo de pines Spartan-3E Starter Kit
 
 	attribute loc: string;			-- Localidad del puerto
 	attribute iostandard: string;	-- Standard a utilizar
 
-	attribute iostandard of vpositive: signal is "LVCMOS33";	
+    attribute slew: string;
+	attribute drive: string;
+    
+    -- Entradas diferenciales
+	attribute iostandard of vpositive: signal is "LVDS_25";	
 	attribute loc of vpositive: signal is "A4";
-	attribute iostandard of vnegative: signal is "LVCMOS33";	
+	attribute iostandard of vnegative: signal is "LVDS_25";	
 	attribute loc of vnegative: signal is "B4";
+	
+	-- Salida realimentacion
+	attribute loc of volt_fb: signal is "C5";
+	attribute slew of volt_fb: signal is "FAST";
+	attribute drive of volt_fb: signal is "8";
+	attribute iostandard of volt_fb: signal is "LVCMOS25";
 
 	attribute loc of clk: signal is "C9";	-- Localidad del Clock de sistema (50 MHz)
 	
-	attribute loc of rst_aux: signal is "L14";	-- Localidad del reset de sistema (Switch SW1)
-	attribute loc of ena_aux: signal is "L13";	-- Localidad del enable de sistema (Switch SW0)
+	attribute loc of rst_v: signal is "L14";	-- Localidad del reset de sistema (Switch SW1)
+	attribute loc of ena_v: signal is "L13";	-- Localidad del enable de sistema (Switch SW0)
 
+    -- VGA
 	attribute loc of hs_VGA: signal is "F15";	-- Localidad del pulso de salida de sistema (Pin HS)
 	attribute loc of vs_VGA: signal is "F14";	-- Localidad del pulso de salida de sistema (Pin VS)
 	attribute loc of red_VGA: signal is "H14";	-- Localidad del color rojo de salida de sistema (Pin RED)
@@ -53,6 +68,14 @@ architecture voltimetro_a of voltimetro is
 
     
 
+	component IBUFDS
+		port(
+			I, IB: in std_logic;
+			O: out std_logic
+		);
+	end component;
+	
+	signal volt_in_diff: std_logic;
 
     component v_div_frec
         port(
@@ -177,9 +200,17 @@ begin
     rst_aux <= rst_v;
     ena_aux <= ena_v;
     clk_aux <= clk;
-    D_ADC_aux <= vpositive;
-    vnegative <= Qn_ADC_aux;
+    --D_ADC_aux <= vpositive;
+    --vnegative <= Qn_ADC_aux;
 
+	
+	ibufdsx: IBUFDS
+		port map(
+		I => vpositive,
+		IB => vnegative,
+		O => volt_in_diff
+		);
+	
     v_div_frec_block: v_div_frec
         port map(
             clk => clk,
@@ -188,16 +219,18 @@ begin
             ena =>ena_aux
         );
 
+    volt_fb <= Q_ADC_aux;
+
     v_ADC_block: v_ADC
         port map(
             clk_ADC => clk_aux,
             rst_ADC => rst_aux,
-            ena_ADC => ena_aux,
-            D_ADC => D_ADC_aux,
-            Qn_ADC => Qn_ADC_aux,
+            ena_ADC => '1',
+            D_ADC => volt_in_diff,
+           -- Qn_ADC => Qn_ADC_aux,
             Q_ADC => Q_ADC_aux
         );
-
+		
     v_cont_33000_block: v_cont_33000
         port map(
             clk => clk_aux,
