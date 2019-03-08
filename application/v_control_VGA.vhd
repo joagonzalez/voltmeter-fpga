@@ -138,7 +138,7 @@ begin
     -- red_o <= '1' when (red_i = '1' and vidon = '1') else '0';
 	red_o <= red_i and vidon;									-- Pinta la pantalla del color formado
 	-- grn_o <= '1' when (grn_i = '1' and vidon = '1') else '0';
-	grn_o <= grn_i and vidon;									-- por la combinaci�n de las entradas
+	grn_o <= grn_i and vidon;									-- por la combinacion de las entradas
 	-- blu_o <= '1' when (blu_i = '1' and vidon = '1') else '0';
 	blu_o <= blu_i and vidon;									-- red_i, grn_i y blu_i (switches)
 
