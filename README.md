@@ -1,6 +1,6 @@
 ## Voltímetro digital con salida VGA
 
-![Figura 1](https://github.com/joagonzalez/voltimetro/blob/develop/documentation/images/voltimetro.png)
+![Figura 1](https://github.com/joagonzalez/voltimetro/blob/develop/documentation/images/voltimetrov2.png)
 
 ### Objetivo:
 
