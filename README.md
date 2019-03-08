@@ -1,6 +1,6 @@
 ## Voltímetro digital con salida VGA
 
-![Figura 1](https://github.com/joagonzalez/voltimetro/blob/develop/documentation/images/voltimetrov2.png)
+![Figura 1](https://github.com/joagonzalez/voltimetro/blob/master/documentation/images/voltimetrov2.png)
 
 ### Objetivo:
 
@@ -13,7 +13,7 @@ Los tres módulos principales del voltímetro se identifican de la siguiente man
 
 ### Esquema de conexión física
 
-![Figura 2](https://github.com/joagonzalez/voltimetro/blob/develop/documentation/images/Conexion_Spartan.png)
+![Figura 2](https://github.com/joagonzalez/voltimetro/blob/master/documentation/images/Conexion_Spartan.png)
 
 
 ### Especificaciones:
