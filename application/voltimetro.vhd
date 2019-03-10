@@ -248,6 +248,7 @@ begin
             clk => clk_aux,
             rst => rst_cont,
             ena => Q_ADC_aux,
+		    --ena => '1',
             Q => Q_cont_aux
         );
 
