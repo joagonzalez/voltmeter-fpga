@@ -21,7 +21,8 @@ entity v_control_VGA is
 		grn_o: out std_logic;	-- salida de color verde
 		blu_o: out std_logic;	-- salida de color azul
 		pos_h: out std_logic_vector(9 downto 0);	--	posicion horizontal del pixel en la pantalla
-		pos_v: out std_logic_vector(9 downto 0)	--	posicion vertical del pixel en la pantalla
+		pos_v: out std_logic_vector(9 downto 0);	--	posicion vertical del pixel en la pantalla
+		v_ena_reg: out std_logic
 	);
 end entity;
 
@@ -59,9 +60,11 @@ architecture v_control_VGA_a of v_control_VGA is
         port(
             clk: in std_logic;		-- Clock del sistema
             ena: in std_logic;		-- Enable del sistema	
-            Q: out std_logic_vector(9 downto 0)
+            Q: out std_logic_vector(9 downto 0);
+			v_rst: out std_logic
         );
     end component;
+	
 
     component v_mux_2x1
         port(
@@ -89,7 +92,8 @@ begin
         port map(
             clk => clk,
             ena => enav,
-            Q => vc
+            Q => vc,
+			v_rst => v_ena_reg
         );
 
     -- Sincronismo horizontal y vertical. Se envian señales a la salida del controlador cuando hc<97 y vc<3
@@ -138,7 +142,7 @@ begin
     -- red_o <= '1' when (red_i = '1' and vidon = '1') else '0';
 	red_o <= red_i and vidon;									-- Pinta la pantalla del color formado
 	-- grn_o <= '1' when (grn_i = '1' and vidon = '1') else '0';
-	grn_o <= grn_i and vidon;									-- por la combinaci�n de las entradas
+	grn_o <= grn_i and vidon;									-- por la combinacion de las entradas
 	-- blu_o <= '1' when (blu_i = '1' and vidon = '1') else '0';
 	blu_o <= blu_i and vidon;									-- red_i, grn_i y blu_i (switches)
 

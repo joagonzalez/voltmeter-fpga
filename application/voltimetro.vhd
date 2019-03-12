@@ -141,13 +141,27 @@ architecture voltimetro_a of voltimetro is
         );
     end component;
 
-    signal D1_aux: std_logic_vector(3 downto 0);
-    signal D2_aux: std_logic_vector(3 downto 0);
-    signal D3_aux: std_logic_vector(3 downto 0);
+    signal D1_aux_temp: std_logic_vector(3 downto 0);
+    signal D2_aux_temp: std_logic_vector(3 downto 0);
+    signal D3_aux_temp: std_logic_vector(3 downto 0);
     signal point_aux: std_logic_vector(3 downto 0);
     signal V_aux: std_logic_vector(3 downto 0);
 
-    component v_MUX
+    component v_reg_base
+		port(
+			clk: in std_logic;
+			rst: in std_logic;
+			ena: in std_logic;
+			D_reg_base: in std_logic_vector(3 downto 0);
+			Q_reg_base: out std_logic_vector(3 downto 0)
+		);
+	end component;
+	
+	signal D1_aux: std_logic_vector(3 downto 0);
+    signal D2_aux: std_logic_vector(3 downto 0);
+    signal D3_aux: std_logic_vector(3 downto 0);
+	
+	component v_MUX
         port(
             D1: in std_logic_vector(3 downto 0);			-- Entrada codificada en BCD variable del digito_in mas siginificativo
             punto: in std_logic_vector(3 downto 0);		-- Entrada codificada constante del punto decimal
@@ -186,9 +200,12 @@ architecture voltimetro_a of voltimetro is
             grn_o: out std_logic;	-- salida de color verde
             blu_o: out std_logic;	-- salida de color azul
             pos_h: out std_logic_vector(9 downto 0);	--	posicion horizontal del pixel en la pantalla
-            pos_v: out std_logic_vector(9 downto 0)	--	posicion vertical del pixel en la pantalla
+            pos_v: out std_logic_vector(9 downto 0);	--	posicion vertical del pixel en la pantalla
+			v_ena_reg: out std_logic
         );
     end component;
+	
+	signal v_ena_reg_aux: std_logic;
 
     signal red_aux: std_logic;
     signal grn_aux: std_logic;
@@ -257,12 +274,39 @@ begin
             rst => rst_aux,
             ena => Q_ENA_aux,
             D_reg => Q_cont_aux,
-            D1 => D1_aux,
-            D2 => D2_aux,
-            D3 => D3_aux,
+            D1 => D1_aux_temp,
+            D2 => D2_aux_temp,
+            D3 => D3_aux_temp,
             point => point_aux,
             V  => V_aux
         );
+		
+	v_reg_D1: v_reg_base
+		port map(
+			clk => clk,
+			rst => '0',
+			ena => v_ena_reg_aux,
+			D_reg_base => D1_aux_temp,
+			Q_reg_base => D1_aux
+		);
+		
+	v_reg_D2: v_reg_base
+		port map(
+			clk => clk,
+			rst => '0',
+			ena => v_ena_reg_aux,
+			D_reg_base => D2_aux_temp,
+			Q_reg_base => D2_aux
+		);
+		
+	v_reg_D3: v_reg_base
+		port map(
+			clk => clk,
+			rst => '0',
+			ena => v_ena_reg_aux,
+			D_reg_base => D3_aux_temp,
+			Q_reg_base => D3_aux
+		);
 
     v_MUX_bloc: v_MUX
         port map(
@@ -301,7 +345,8 @@ begin
             grn_o => grn_VGA,
             blu_o => blu_VGA,
             pos_h => pos_h_aux,
-            pos_v => pos_v_aux
+            pos_v => pos_v_aux,
+			v_ena_reg => v_ena_reg_aux
         );
 
 end voltimetro_a ;

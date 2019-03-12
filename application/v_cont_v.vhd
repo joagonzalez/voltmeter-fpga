@@ -13,7 +13,8 @@ entity v_cont_v is
 	port(
 		clk: in std_logic;		-- Clock del sistema
 		ena: in std_logic;		-- Enable del sistema	
-		Q: out std_logic_vector(9 downto 0)
+		Q: out std_logic_vector(9 downto 0);
+		v_rst: out std_logic
 	);
 end v_cont_v;
 
@@ -78,5 +79,6 @@ begin
     rst_end <= Qi_vec(9) and (not Qi_vec(8)) and (not Qi_vec(7)) and (not Qi_vec(6)) and (not Qi_vec(5)) and (not Qi_vec(4)) and Qi_vec(3) and (not Qi_vec(2)) and Qi_vec(1) and (not Qi_vec(0));
 
     Q <= Qi_vec;
-    
+    v_rst <= rst_end;
+	
 end;
