@@ -16,9 +16,9 @@ entity voltimetro is
 		clk: in std_logic;			-- Clock del sistema
 		rst_v: in std_logic;	    -- Reset del sistema
 		ena_v: in std_logic;	    -- Enable del sistema
-		vpositive: in std_logic;	-- Entrada de voltaje positivo al sistema
-		vnegative: in std_logic;	-- Entrada de voltaje negativo del sistema
-		volt_fb: out std_logic;     -- Salida del SigmaDelta
+		data_volt_in_p: in std_logic;
+		data_volt_in_n: in std_logic;
+		data_volt_out: out std_logic;     -- Salida del SigmaDelta
 		hs_VGA: out std_logic;		-- Pulso de sincronismo horizontal
      	vs_VGA: out std_logic;		-- Pulso de sincronismo vertical
      	red_VGA: out std_logic;		-- Salida binaria al rojo
@@ -42,17 +42,17 @@ architecture voltimetro_a of voltimetro is
     attribute slew: string;
 	attribute drive: string;
     
-    -- Entradas diferenciales
-	attribute iostandard of vpositive: signal is "LVDS_25";	
-	attribute loc of vpositive: signal is "A4";
-	attribute iostandard of vnegative: signal is "LVDS_25";	
-	attribute loc of vnegative: signal is "B4";
+	-- -- Entradas diferenciales
+	attribute iostandard of data_volt_in_p: signal is "LVDS_25";	
+	attribute loc of data_volt_in_p: signal is "A4";
+	attribute iostandard of data_volt_in_n: signal is "LVDS_25";	
+	attribute loc of data_volt_in_n: signal is "B4";
 	
-	-- Salida realimentacion
-	attribute loc of volt_fb: signal is "C5";
-	attribute slew of volt_fb: signal is "FAST";
-	attribute drive of volt_fb: signal is "8";
-	attribute iostandard of volt_fb: signal is "LVCMOS25";
+	-- -- Salida realimentada
+	attribute loc of data_volt_out: signal is "C5";
+	attribute slew of data_volt_out: signal is "FAST";
+	attribute drive of data_volt_out: signal is "8";
+	attribute iostandard of data_volt_out: signal is "LVCMOS25";
 
 	attribute loc of clk: signal is "C9";	-- Localidad del Clock de sistema (50 MHz)
 	
@@ -203,12 +203,11 @@ begin
     --D_ADC_aux <= vpositive;
     --vnegative <= Qn_ADC_aux;
 
-	
-	ibufdsx: IBUFDS
+		ibuf0: IBUFDS 
 		port map(
-		I => vpositive,
-		IB => vnegative,
-		O => volt_in_diff
+			I => data_volt_in_p,
+			IB => data_volt_in_n,
+			O => volt_in_diff
 		);
 	
     v_div_frec_block: v_div_frec
@@ -219,7 +218,7 @@ begin
             ena =>ena_aux
         );
 
-    volt_fb <= Q_ADC_aux;
+    data_volt_out <= Q_ADC_aux;
 
     v_ADC_block: v_ADC
         port map(
@@ -248,6 +247,7 @@ begin
             clk => clk_aux,
             rst => rst_cont,
             ena => Q_ADC_aux,
+		    --ena => '1',
             Q => Q_cont_aux
         );
 
