@@ -79,13 +79,13 @@ begin
 	end generate v_cont_bin_base_block;
 
 --	33001		=	  1			      0				     0					      0    					0					0						1				0				0				0			    			0			1				0					1					1			
-    --rst_end <= Qi_vec(15) and (not Qi_vec(14)) and (not Qi_vec(13)) and (not Qi_vec(12)) and (not Qi_vec(11)) and (not Qi_vec(10)) and (Qi_vec(9)) and (not Qi_vec(8)) and (not Qi_vec(7)) and (not Qi_vec(6)) and (not Qi_vec(5)) and (Qi_vec(4)) and (not Qi_vec(3)) and (Qi_vec(2)) and (not Qi_vec(1)) and (Qi_vec(0));
-	rst_end <= Qi_vec(15) and (not Qi_vec(14)) and (not Qi_vec(13)) and (not Qi_vec(12)) and (not Qi_vec(11)) and (not Qi_vec(10)) and (not Qi_vec(9)) and (not Qi_vec(8)) and Qi_vec(7) and Qi_vec(6) and Qi_vec(5) and (not Qi_vec(4)) and Qi_vec(3) and (not Qi_vec(2)) and (not Qi_vec(1)) and Qi_vec(0);
+    rst_end <= Qi_vec(15) and (not Qi_vec(14)) and (not Qi_vec(13)) and (not Qi_vec(12)) and (not Qi_vec(11)) and (not Qi_vec(10)) and (Qi_vec(9)) and (not Qi_vec(8)) and (not Qi_vec(7)) and (not Qi_vec(6)) and (not Qi_vec(5)) and (Qi_vec(4)) and (not Qi_vec(3)) and (Qi_vec(2)) and (not Qi_vec(1)) and (Qi_vec(0));
+
     Q_RST <= rst_end; -- Aviso fuera del modulo que contamos hasta 9 = 1001
 
 --	33000		=	  1			      0				     0					      0    					0					0						0				0					1				1			1			0					1				0					0					0			
-	--Q_ENA <= Qi_vec(15) and (not Qi_vec(14)) and (not Qi_vec(13)) and (not Qi_vec(12)) and (not Qi_vec(11)) and (not Qi_vec(10)) and (Qi_vec(9)) and (not Qi_vec(8)) and (not Qi_vec(7)) and (not Qi_vec(6)) and (not Qi_vec(5)) and (Qi_vec(4)) and (not Qi_vec(3)) and (Qi_vec(2)) and (not Qi_vec(1)) and (not Qi_vec(0));
-	Q_ENA <= Qi_vec(15) and (not Qi_vec(14)) and (not Qi_vec(13)) and (not Qi_vec(12)) and (not Qi_vec(11)) and (not Qi_vec(10)) and (not Qi_vec(9)) and (not Qi_vec(8)) and Qi_vec(7) and Qi_vec(6) and Qi_vec(5) and (not Qi_vec(4)) and Qi_vec(3) and (not Qi_vec(2)) and (not Qi_vec(1)) and (not Qi_vec(0));
+	Q_ENA <= Qi_vec(15) and (not Qi_vec(14)) and (not Qi_vec(13)) and (not Qi_vec(12)) and (not Qi_vec(11)) and (not Qi_vec(10)) and (Qi_vec(9)) and (not Qi_vec(8)) and (not Qi_vec(7)) and (not Qi_vec(6)) and (not Qi_vec(5)) and (Qi_vec(4)) and (not Qi_vec(3)) and (Qi_vec(2)) and (not Qi_vec(1)) and (not Qi_vec(0));
+	
 -- Salidas para test bench
 	Q(15) <= Qi_vec(15);
 	Q(14) <= Qi_vec(14);

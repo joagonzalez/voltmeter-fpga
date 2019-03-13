@@ -21,8 +21,7 @@ entity v_control_VGA is
 		grn_o: out std_logic;	-- salida de color verde
 		blu_o: out std_logic;	-- salida de color azul
 		pos_h: out std_logic_vector(9 downto 0);	--	posicion horizontal del pixel en la pantalla
-		pos_v: out std_logic_vector(9 downto 0);	--	posicion vertical del pixel en la pantalla
-		v_ena_reg: out std_logic
+		pos_v: out std_logic_vector(9 downto 0)	--	posicion vertical del pixel en la pantalla
 	);
 end entity;
 
@@ -60,11 +59,9 @@ architecture v_control_VGA_a of v_control_VGA is
         port(
             clk: in std_logic;		-- Clock del sistema
             ena: in std_logic;		-- Enable del sistema	
-            Q: out std_logic_vector(9 downto 0);
-			v_rst: out std_logic
+            Q: out std_logic_vector(9 downto 0)
         );
     end component;
-	
 
     component v_mux_2x1
         port(
@@ -92,8 +89,7 @@ begin
         port map(
             clk => clk,
             ena => enav,
-            Q => vc,
-			v_rst => v_ena_reg
+            Q => vc
         );
 
     -- Sincronismo horizontal y vertical. Se envian señales a la salida del controlador cuando hc<97 y vc<3

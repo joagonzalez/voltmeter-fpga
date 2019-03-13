@@ -16,9 +16,9 @@ entity voltimetro is
 		clk: in std_logic;			-- Clock del sistema
 		rst_v: in std_logic;	    -- Reset del sistema
 		ena_v: in std_logic;	    -- Enable del sistema
-		data_volt_in_p: in std_logic;
-		data_volt_in_n: in std_logic;
-		data_volt_out: out std_logic;     -- Salida del SigmaDelta
+		vpositive: in std_logic;	-- Entrada de voltaje positivo al sistema
+		vnegative: in std_logic;	-- Entrada de voltaje negativo del sistema
+		volt_fb: out std_logic;     -- Salida del SigmaDelta
 		hs_VGA: out std_logic;		-- Pulso de sincronismo horizontal
      	vs_VGA: out std_logic;		-- Pulso de sincronismo vertical
      	red_VGA: out std_logic;		-- Salida binaria al rojo
@@ -42,17 +42,17 @@ architecture voltimetro_a of voltimetro is
     attribute slew: string;
 	attribute drive: string;
     
-	-- -- Entradas diferenciales
-	attribute iostandard of data_volt_in_p: signal is "LVDS_25";	
-	attribute loc of data_volt_in_p: signal is "A4";
-	attribute iostandard of data_volt_in_n: signal is "LVDS_25";	
-	attribute loc of data_volt_in_n: signal is "B4";
+    -- Entradas diferenciales
+	attribute iostandard of vpositive: signal is "LVDS_25";	
+	attribute loc of vpositive: signal is "A4";
+	attribute iostandard of vnegative: signal is "LVDS_25";	
+	attribute loc of vnegative: signal is "B4";
 	
-	-- -- Salida realimentada
-	attribute loc of data_volt_out: signal is "C5";
-	attribute slew of data_volt_out: signal is "FAST";
-	attribute drive of data_volt_out: signal is "8";
-	attribute iostandard of data_volt_out: signal is "LVCMOS25";
+	-- Salida realimentacion
+	attribute loc of volt_fb: signal is "C5";
+	attribute slew of volt_fb: signal is "FAST";
+	attribute drive of volt_fb: signal is "8";
+	attribute iostandard of volt_fb: signal is "LVCMOS25";
 
 	attribute loc of clk: signal is "C9";	-- Localidad del Clock de sistema (50 MHz)
 	
@@ -141,27 +141,13 @@ architecture voltimetro_a of voltimetro is
         );
     end component;
 
-    signal D1_aux_temp: std_logic_vector(3 downto 0);
-    signal D2_aux_temp: std_logic_vector(3 downto 0);
-    signal D3_aux_temp: std_logic_vector(3 downto 0);
+    signal D1_aux: std_logic_vector(3 downto 0);
+    signal D2_aux: std_logic_vector(3 downto 0);
+    signal D3_aux: std_logic_vector(3 downto 0);
     signal point_aux: std_logic_vector(3 downto 0);
     signal V_aux: std_logic_vector(3 downto 0);
 
-    component v_reg_base
-		port(
-			clk: in std_logic;
-			rst: in std_logic;
-			ena: in std_logic;
-			D_reg_base: in std_logic_vector(3 downto 0);
-			Q_reg_base: out std_logic_vector(3 downto 0)
-		);
-	end component;
-	
-	signal D1_aux: std_logic_vector(3 downto 0);
-    signal D2_aux: std_logic_vector(3 downto 0);
-    signal D3_aux: std_logic_vector(3 downto 0);
-	
-	component v_MUX
+    component v_MUX
         port(
             D1: in std_logic_vector(3 downto 0);			-- Entrada codificada en BCD variable del digito_in mas siginificativo
             punto: in std_logic_vector(3 downto 0);		-- Entrada codificada constante del punto decimal
@@ -200,12 +186,9 @@ architecture voltimetro_a of voltimetro is
             grn_o: out std_logic;	-- salida de color verde
             blu_o: out std_logic;	-- salida de color azul
             pos_h: out std_logic_vector(9 downto 0);	--	posicion horizontal del pixel en la pantalla
-            pos_v: out std_logic_vector(9 downto 0);	--	posicion vertical del pixel en la pantalla
-			v_ena_reg: out std_logic
+            pos_v: out std_logic_vector(9 downto 0)	--	posicion vertical del pixel en la pantalla
         );
     end component;
-	
-	signal v_ena_reg_aux: std_logic;
 
     signal red_aux: std_logic;
     signal grn_aux: std_logic;
@@ -220,11 +203,12 @@ begin
     --D_ADC_aux <= vpositive;
     --vnegative <= Qn_ADC_aux;
 
-		ibuf0: IBUFDS 
+	
+	ibufdsx: IBUFDS
 		port map(
-			I => data_volt_in_p,
-			IB => data_volt_in_n,
-			O => volt_in_diff
+		I => vpositive,
+		IB => vnegative,
+		O => volt_in_diff
 		);
 	
     v_div_frec_block: v_div_frec
@@ -235,7 +219,7 @@ begin
             ena =>ena_aux
         );
 
-    data_volt_out <= Q_ADC_aux;
+    volt_fb <= Q_ADC_aux;
 
     v_ADC_block: v_ADC
         port map(
@@ -274,39 +258,12 @@ begin
             rst => rst_aux,
             ena => Q_ENA_aux,
             D_reg => Q_cont_aux,
-            D1 => D1_aux_temp,
-            D2 => D2_aux_temp,
-            D3 => D3_aux_temp,
+            D1 => D1_aux,
+            D2 => D2_aux,
+            D3 => D3_aux,
             point => point_aux,
             V  => V_aux
         );
-		
-	v_reg_D1: v_reg_base
-		port map(
-			clk => clk,
-			rst => '0',
-			ena => v_ena_reg_aux,
-			D_reg_base => D1_aux_temp,
-			Q_reg_base => D1_aux
-		);
-		
-	v_reg_D2: v_reg_base
-		port map(
-			clk => clk,
-			rst => '0',
-			ena => v_ena_reg_aux,
-			D_reg_base => D2_aux_temp,
-			Q_reg_base => D2_aux
-		);
-		
-	v_reg_D3: v_reg_base
-		port map(
-			clk => clk,
-			rst => '0',
-			ena => v_ena_reg_aux,
-			D_reg_base => D3_aux_temp,
-			Q_reg_base => D3_aux
-		);
 
     v_MUX_bloc: v_MUX
         port map(
@@ -345,8 +302,7 @@ begin
             grn_o => grn_VGA,
             blu_o => blu_VGA,
             pos_h => pos_h_aux,
-            pos_v => pos_v_aux,
-			v_ena_reg => v_ena_reg_aux
+            pos_v => pos_v_aux
         );
 
 end voltimetro_a ;
