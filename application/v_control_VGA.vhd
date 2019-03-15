@@ -11,7 +11,8 @@ use IEEE.numeric_std.all;
 
 entity v_control_VGA is
 	port (
-		clk: in std_logic;		-- reloj del sistema (50 MHz)
+        clk: in std_logic;		-- reloj del sistema (50 MHz)
+        rst: in std_logic;
 		red_i: in std_logic;	-- entrada comandada por uno de los switches del kit
 		grn_i: in std_logic;	-- entrada comandada por uno de los switches del kit
 		blu_i: in std_logic;	-- entrada comandada por uno de los switches del kit
@@ -21,7 +22,8 @@ entity v_control_VGA is
 		grn_o: out std_logic;	-- salida de color verde
 		blu_o: out std_logic;	-- salida de color azul
 		pos_h: out std_logic_vector(9 downto 0);	--	posicion horizontal del pixel en la pantalla
-		pos_v: out std_logic_vector(9 downto 0)	--	posicion vertical del pixel en la pantalla
+		pos_v: out std_logic_vector(9 downto 0);	--	posicion vertical del pixel en la pantalla
+		v_ena_reg: out std_logic
 	);
 end entity;
 
@@ -50,6 +52,7 @@ architecture v_control_VGA_a of v_control_VGA is
         port(
             clk: in std_logic;		-- Clock del sistema
             ena: in std_logic;		-- Enable del sistema
+            rst: in std_logic;
             Q_ENA: out std_logic;	-- Aviso a 800	
             Q: out std_logic_vector(9 downto 0)
         );
@@ -59,9 +62,12 @@ architecture v_control_VGA_a of v_control_VGA is
         port(
             clk: in std_logic;		-- Clock del sistema
             ena: in std_logic;		-- Enable del sistema	
-            Q: out std_logic_vector(9 downto 0)
+            rst: in std_logic;
+            Q: out std_logic_vector(9 downto 0);
+			v_rst: out std_logic
         );
     end component;
+	
 
     component v_mux_2x1
         port(
@@ -81,6 +87,7 @@ begin
         port map(
             clk => clk,
             ena => enah,
+            rst => rst,
             Q_ENA => enav,
             Q => hc
         );
@@ -89,7 +96,9 @@ begin
         port map(
             clk => clk,
             ena => enav,
-            Q => vc
+            rst => rst,
+            Q => vc,
+			v_rst => v_ena_reg
         );
 
     -- Sincronismo horizontal y vertical. Se envian señales a la salida del controlador cuando hc<97 y vc<3
@@ -140,6 +149,8 @@ begin
 	-- grn_o <= '1' when (grn_i = '1' and vidon = '1') else '0';
 	grn_o <= grn_i and vidon;									-- por la combinacion de las entradas
 	-- blu_o <= '1' when (blu_i = '1' and vidon = '1') else '0';
-	blu_o <= blu_i and vidon;									-- red_i, grn_i y blu_i (switches)
+    blu_o <= blu_i and vidon;									-- red_i, grn_i y blu_i (switches)
+    
+    -- v_ena_reg <= vidon;
 
 end architecture;

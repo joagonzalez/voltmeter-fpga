@@ -13,6 +13,7 @@ entity v_cont_h is
 	port(
 		clk: in std_logic;		-- Clock del sistema
 		ena: in std_logic;		-- Enable del sistema
+		rst: in std_logic;
 		Q_ENA: out std_logic;	-- Aviso a 800	
 		Q: out std_logic_vector(9 downto 0)
 	);
@@ -44,7 +45,7 @@ end component;
 signal Di_vec, Qi_vec, ACU_vec: std_logic_vector(9 downto 0); -- Conexiones vectoriales para la implementacion del contador hasta 800 y 801
 
 signal rst_end: std_logic;	-- Conexion de reset al finalizar de contar 801
-
+signal rst_cont: std_logic;
 -- signal Q_end: std_logic_vector(3 downto 0);
 
 begin
@@ -53,7 +54,7 @@ begin
    ffd0: v_ffd
        port map(
           clk => clk,	    -- Clock del v_ffd
-          rst => rst_end,	-- Reset del v_ffd
+          rst => rst_cont,	-- Reset del v_ffd
           ena => ena,    	-- Enable del sistema
           D => Di_vec(0),	  
           Q => Qi_vec(0)
@@ -66,7 +67,7 @@ begin
 	   v_cont_bin_base_i: v_cont_bin_base
 	      port map(
 	          clk => clk,
-	          rst => rst_end,
+	          rst => rst_cont,
 	          ena => ena,
 	          D => Di_vec(i),
 	          Q => Qi_vec(i),
@@ -77,7 +78,7 @@ begin
 
 --	801		=	 ‭1100100001‬ 
     rst_end <= Qi_vec(9) and Qi_vec(8) and (not Qi_vec(7)) and (not Qi_vec(6)) and Qi_vec(5) and (not Qi_vec(4)) and (not Qi_vec(3)) and (not Qi_vec(2))  and (not Qi_vec(1)) and Qi_vec(0);   
-
+	rst_cont <= rst or rst_end;
 
 --	800		=	 1100100000
 	Q_ENA <= Qi_vec(9) and Qi_vec(8) and (not Qi_vec(7)) and (not Qi_vec(6)) and Qi_vec(5) and (not Qi_vec(4)) and (not Qi_vec(3)) and (not Qi_vec(2)) and (not Qi_vec(1)) and (not Qi_vec(0));   

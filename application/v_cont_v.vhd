@@ -13,7 +13,9 @@ entity v_cont_v is
 	port(
 		clk: in std_logic;		-- Clock del sistema
 		ena: in std_logic;		-- Enable del sistema	
-		Q: out std_logic_vector(9 downto 0)
+		rst: in std_logic;
+		Q: out std_logic_vector(9 downto 0);
+		v_rst: out std_logic
 	);
 end v_cont_v;
 
@@ -46,13 +48,14 @@ signal rst_end: std_logic;	-- Conexion de reset al finalizar de contar 522
 
 -- signal Q_end: std_logic_vector(3 downto 0);
 
+signal rst_cont: std_logic;
+
 begin
-   
-   
+      
    ffd0: v_ffd
        port map(
           clk => clk,	    -- Clock del v_ffd
-          rst => rst_end,	-- Reset del v_ffd
+          rst => rst_cont,	-- Reset del v_ffd
           ena => ena,    	-- Enable del sistema
           D => Di_vec(0),	  
           Q => Qi_vec(0)
@@ -65,7 +68,7 @@ begin
 	   v_cont_bin_base_i: v_cont_bin_base
 	      port map(
 	          clk => clk,
-	          rst => rst_end,
+	          rst => rst_cont,
 	          ena => ena,
 	          D => Di_vec(i),
 	          Q => Qi_vec(i),
@@ -75,8 +78,12 @@ begin
 	end generate v_cont_bin_base_block;
 
 --	522		=	 ‭‭1000001010‬‬ 
-    rst_end <= Qi_vec(9) and (not Qi_vec(8)) and (not Qi_vec(7)) and (not Qi_vec(6)) and (not Qi_vec(5)) and (not Qi_vec(4)) and Qi_vec(3) and (not Qi_vec(2)) and Qi_vec(1) and (not Qi_vec(0));
+	rst_end <= Qi_vec(9) and (not Qi_vec(8)) and (not Qi_vec(7)) and (not Qi_vec(6)) and (not Qi_vec(5)) and (not Qi_vec(4)) and Qi_vec(3) and (not Qi_vec(2)) and Qi_vec(1) and (not Qi_vec(0));
+	-- rst_end <= Qi_vec(9) and (not Qi_vec(8)) and (not Qi_vec(7)) and (not Qi_vec(6)) and (not Qi_vec(5)) and (not Qi_vec(4)) and Qi_vec(3) and (not Qi_vec(2)) and Qi_vec(1) and Qi_vec(0);
+	rst_cont <= rst or rst_end;
 
     Q <= Qi_vec;
-    
+	-- v_rst <= Qi_vec(9) and (not Qi_vec(8)) and (not Qi_vec(7)) and (not Qi_vec(6)) and (not Qi_vec(5)) and (not Qi_vec(4)) and Qi_vec(3) and (not Qi_vec(2)) and Qi_vec(1) and (not Qi_vec(0));
+	v_rst <= Qi_vec(9) and (not Qi_vec(8)) and (not Qi_vec(7)) and (not Qi_vec(6)) and (not Qi_vec(5)) and (not Qi_vec(4)) and Qi_vec(3) and (not Qi_vec(2)) and (not Qi_vec(1)) and Qi_vec(0);
+	
 end;
